@@ -12,7 +12,11 @@ node('master') {
 
   if (!job.delegateMerge()) {
 
-    job.mvnCleanPackage()
+     job.mvnCleanPackage()
+
+     job.dockerBuild()
+
+     job.dockerPush()
 
   }
 }
