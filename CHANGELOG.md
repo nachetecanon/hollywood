@@ -1,3 +1,7 @@
+### [0.1.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.1.0) (30-08-2017) [#3](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/3/overview) [[PIP-148](https://jira.pibenchmark.com/browse/PIP-148)] Refactor  the  java to kotlin
+
+Change all package to kotlin
+
 #### [0.0.2](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.0.2) (25-08-2017) [#2](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/2/overview) [[PIP-139](https://jira.pibenchmark.com/browse/PIP-139)] add simple dashboard entities in java
 
 +Create a simple project in java for save one dataset
