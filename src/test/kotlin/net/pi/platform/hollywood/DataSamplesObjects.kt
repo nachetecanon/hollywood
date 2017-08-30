@@ -14,7 +14,7 @@ class DataSamplesObjects {
                     widgets = listOf(
                             Widget(id = null, name = "name-widget"
                                     , bookmarked = true,
-                                    widgetPosition = WidgetPosition(x = 0, y = 1, rows = 2, cols = 2))))
+                                    position = WidgetPosition(x = 0, y = 1, rows = 2, cols = 2))))
         }
     }
 }
