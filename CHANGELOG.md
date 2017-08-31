@@ -1,3 +1,7 @@
+### [0.3.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.3.0) (31-08-2017) [#6](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/6/overview) [[PIP-187](https://jira.pibenchmark.com/browse/PIP-187)] Add spring-error library
+
+In order to see better what error appears on application, it will be added Spring Error library.
+
 ### [0.2.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.2.0) (31-08-2017) [#4](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/4/overview) [[PIP-156](https://jira.pibenchmark.com/browse/PIP-156)] Create an api endpoint to list dashboards
 
 * Create endpoint to list all dashboads entities.
