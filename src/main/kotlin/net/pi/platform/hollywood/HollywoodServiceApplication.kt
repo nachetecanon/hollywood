@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = arrayOf("net.pi.platform.hollywood", "net.pi.platform"))
 class HollywoodServiceApplication {
 
 
