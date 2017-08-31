@@ -1,3 +1,9 @@
+### [0.2.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.2.0) (31-08-2017) [#4](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/4/overview) [[PIP-156](https://jira.pibenchmark.com/browse/PIP-156)] Create an api endpoint to list dashboards
+
+* Create endpoint to list all dashboads entities.
+* Add a controller that list all dashboards.
+* Add a service method to enable dashboard listing.
+
 #### [0.1.1](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.1.1) (30-08-2017) [#5](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/5/overview) [[PIP-156](https://jira.pibenchmark.com/browse/PIP-156)] change the name of widgetPosition
 
 Change the name of widget position
