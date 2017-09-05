@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
+import org.springframework.http.RequestEntity
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
+import java.net.URI
 
 
 @RunWith(SpringRunner::class)
@@ -46,6 +49,27 @@ class SaveDashboardIT() {
         val resultDashboard = dashboardResponseEntity.getBody()
         assertEquals(dashboardRepository.findOne(resultDashboard.id), resultDashboard)
     }
+
+    @Test
+    fun `when save dashboard with visualization return dashboard`() {
+        val dashboard = DataSamplesObjects.getDashboardWithVisualization();
+        val dashboardResponseEntity = testRestemplate.postForEntity(localhost_uri + port + "/api/dashboards", dashboard, Dashboard::class.java)
+        assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
+        val resultDashboard = dashboardResponseEntity.getBody()
+        assertEquals(dashboardRepository.findOne(resultDashboard.id), resultDashboard)
+    }
+
+    @Test
+    fun `when return dashboard with unknown visualization object return dashboard`() {
+        val dashboard = DataSamplesObjects.getDashboardWithUknownVisualizationJsonString();
+        val endpoint = URI.create(localhost_uri + port + "/api/dashboards")
+        val request = RequestEntity.post(endpoint).contentType(MediaType.APPLICATION_JSON).body(dashboard)
+        val dashboardResponseEntity = testRestemplate.exchange(request, Dashboard::class.java)
+        assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
+        val resultDashboard = dashboardResponseEntity.getBody()
+        assertEquals(dashboardRepository.findOne(resultDashboard.id), resultDashboard)
+    }
+
 
     @Test
     fun `when save dashboard with id return WrongInputValue`() {
