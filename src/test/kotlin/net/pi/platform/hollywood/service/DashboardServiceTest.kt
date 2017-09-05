@@ -2,6 +2,7 @@ package net.pi.platform.hollywood.service
 
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertTrue
+import net.pi.platform.common.api.exception.WrongInputValueException
 import net.pi.platform.hollywood.DataSamplesObjects
 import net.pi.platform.hollywood.repository.DashboardRepository
 import org.junit.Test
@@ -21,6 +22,18 @@ class DashboardServiceImplTest() {
         assertEquals(dashboardReturned, dashboard)
         verify<DashboardRepository>(this.dashboardRepository, times(1)).save(dashboard)
         verifyNoMoreInteractions(this.dashboardRepository)
+    }
+
+    @Test
+    fun `trying to save dasboard with id`() {
+        val dashboard = DataSamplesObjects.getDashboard().copy(id = "blablabla")
+        try {
+            dashboardService.saveDashboard(dashboard)
+        } catch (e: WrongInputValueException) {
+            assertEquals(e.message, "You cannot save one dashboard with id")
+            verifyNoMoreInteractions(this.dashboardRepository)
+        }
+
     }
 
     @Test

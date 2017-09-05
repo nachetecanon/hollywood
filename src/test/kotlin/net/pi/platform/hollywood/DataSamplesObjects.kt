@@ -9,7 +9,7 @@ class DataSamplesObjects {
     companion object Dashboards {
 
         fun getDashboard(): Dashboard {
-            return Dashboard(id = "my-d",
+            return Dashboard(id = null,
                     name = "name",
                     widgets = listOf(
                             Widget(id = null, name = "name-widget"

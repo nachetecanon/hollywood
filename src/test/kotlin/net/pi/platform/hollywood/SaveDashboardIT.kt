@@ -46,6 +46,17 @@ class SaveDashboardIT() {
         val resultDashboard = dashboardResponseEntity.getBody()
         assertEquals(dashboardRepository.findOne(resultDashboard.id), resultDashboard)
     }
+
+    @Test
+    fun `when save dashboard with id return WrongInputValue`() {
+        val dashboard = DataSamplesObjects.getDashboard().copy(id = "blabla");
+        val dashboardResponseEntity = testRestemplate.postForEntity(localhost_uri + port + "/api/dashboards", dashboard, Map::class.java)
+        val requestBody = dashboardResponseEntity.body
+        assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.BAD_REQUEST)
+        assertEquals(requestBody.get("errorMessage"), "You cannot save one dashboard with id")
+        assertEquals(requestBody.get("errorCode"), "invalid.input")
+
+    }
 }
 
 
