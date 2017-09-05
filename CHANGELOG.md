@@ -1,3 +1,8 @@
+### [0.4.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.4.0) (05-09-2017) [#7](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/7/overview) [[PIP-222](https://jira.pibenchmark.com/browse/PIP-222)] fix dont dave dashboard with id
+
++ Add test that validates that when you send a id with same value
++ Check in the service that the id is null
+
 ### [0.3.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.3.0) (31-08-2017) [#6](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/6/overview) [[PIP-187](https://jira.pibenchmark.com/browse/PIP-187)] Add spring-error library
 
 In order to see better what error appears on application, it will be added Spring Error library.
