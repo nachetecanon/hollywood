@@ -3,6 +3,7 @@ package net.pi.platform.hollywood
 import junit.framework.Assert.assertEquals
 import net.pi.platform.hollywood.model.Dashboard
 import net.pi.platform.hollywood.repository.DashboardRepository
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -10,10 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
+import org.springframework.web.util.UriComponentsBuilder
 
 
 @RunWith(SpringRunner::class)
@@ -22,40 +27,73 @@ import org.springframework.test.context.junit4.SpringRunner
 @ActiveProfiles("integration-test")
 class SaveDashboardIT() {
 
+    companion object {
+        init {
+            System.setProperty("spring.cloud.config.enabled", "false")
+        }
+    }
+
     @Autowired
-    lateinit var testRestemplate: TestRestTemplate;
+    lateinit var testRestTemplate: TestRestTemplate;
 
     @Autowired
     lateinit var dashboardRepository: DashboardRepository
 
-    val localhost_uri = "http://localhost:";
-
     @Value("\${local.server.port}")
     private val port: Int? = null;
 
+    private var id: String? = null
+
     @Before
     fun setUp() {
-        dashboardRepository.deleteAll();
+        id = dashboardRepository.save(DataSamplesObjects.getDashboard()).id
+    }
+
+    @After
+    fun tearDonw() {
+        dashboardRepository.deleteAll()
     }
 
     @Test
-    fun `when save dashboard return dashboard`() {
+    fun `test create when save dashboard then return dashboard`() {
         val dashboard = DataSamplesObjects.getDashboard();
-        val dashboardResponseEntity = testRestemplate.postForEntity(localhost_uri + port + "/api/dashboards", dashboard, Dashboard::class.java)
+        val dashboardResponseEntity = testRestTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
         val resultDashboard = dashboardResponseEntity.getBody()
         assertEquals(dashboardRepository.findOne(resultDashboard.id), resultDashboard)
     }
 
     @Test
-    fun `when save dashboard with id return WrongInputValue`() {
+    fun `test create when save dashboard and with id then throws WrongInputValue exception`() {
         val dashboard = DataSamplesObjects.getDashboard().copy(id = "blabla");
-        val dashboardResponseEntity = testRestemplate.postForEntity(localhost_uri + port + "/api/dashboards", dashboard, Map::class.java)
+        val dashboardResponseEntity = testRestTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Map::class.java)
         val requestBody = dashboardResponseEntity.body
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.BAD_REQUEST)
-        assertEquals(requestBody.get("errorMessage"), "You cannot save one dashboard with id")
+        assertEquals(requestBody.get("errorMessage"), "You cannot create a dashboard with id")
         assertEquals(requestBody.get("errorCode"), "invalid.input")
 
+    }
+
+    @Test
+    fun `test update when exists dashboard then update dashboard and return it`() {
+        val entity = HttpEntity(DataSamplesObjects.getDashboard(), HttpHeaders())
+        val response = testRestTemplate.exchange(getRequestPathFor("dashboards", id), HttpMethod.PUT, entity, Void::class.java)
+        assertEquals(response.getStatusCode(), HttpStatus.NO_CONTENT)
+    }
+
+    @Test
+    fun `test update when not exists dashboard then throws EntityNotFound exception`() {
+        val entity = HttpEntity(DataSamplesObjects.getDashboard(), HttpHeaders())
+        val response = testRestTemplate.exchange(getRequestPathFor("dashboards", "not_found"), HttpMethod.PUT, entity, Map::class.java)
+        assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND)
+        val result = response.body
+        assertEquals(result.get("errorMessage"), "Unable to update dashboard: Dashboard with id[not_found] not found")
+        assertEquals(result.get("errorCode"), "uri.not.found")
+    }
+
+    private fun getRequestPathFor(vararg path: String?): String {
+        return UriComponentsBuilder.fromHttpUrl(String.format("http://localhost:%d/api", port))
+                .pathSegment(*path).build().toString()
     }
 }
 
