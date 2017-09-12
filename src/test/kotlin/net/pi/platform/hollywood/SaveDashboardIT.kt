@@ -1,9 +1,9 @@
 package net.pi.platform.hollywood
 
-import junit.framework.Assert.assertEquals
 import net.pi.platform.hollywood.model.Dashboard
 import net.pi.platform.hollywood.repository.DashboardRepository
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -11,18 +11,23 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
-import org.springframework.http.*
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
+import org.springframework.http.HttpStatus
+import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.web.util.UriComponentsBuilder
+import javax.annotation.PostConstruct
 
 
 @RunWith(SpringRunner::class)
 @ContextConfiguration(classes = arrayOf(HollywoodServiceApplication::class))
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("integration-test")
-class SaveDashboardIT() {
+class SaveDashboardIT {
 
     companion object {
         init {
@@ -31,19 +36,25 @@ class SaveDashboardIT() {
     }
 
     @Autowired
-    lateinit var testRestTemplate: TestRestTemplate;
+    lateinit var restTemplate: TestRestTemplate
 
     @Autowired
     lateinit var dashboardRepository: DashboardRepository
+
+    @Autowired
+    lateinit var clientHttpRequestInterceptor: ClientHttpRequestInterceptor
 
     @Value("\${local.server.port}")
     private val port: Int? = null;
 
     private var id: String? = null
 
+    @PostConstruct
+    fun setUp() = restTemplate.restTemplate.interceptors.add(clientHttpRequestInterceptor)
+
     @Before
-    fun setUp() {
-        id = dashboardRepository.save(DataSamplesObjects.getDashboard()).id
+    fun cleanUp() {
+        dashboardRepository.deleteAll();
     }
 
     @After
@@ -54,7 +65,7 @@ class SaveDashboardIT() {
     @Test
     fun `test create when save dashboard then return dashboard`() {
         val dashboard = DataSamplesObjects.getDashboard();
-        val dashboardResponseEntity = testRestTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
+        val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
         val resultDashboard = dashboardResponseEntity.getBody()
         assertEquals(dashboardRepository.findOne(resultDashboard.id), resultDashboard)
@@ -63,7 +74,7 @@ class SaveDashboardIT() {
     @Test
     fun `test create when save dashboard with visualization return dashboard with that visualization`() {
         val dashboard = DataSamplesObjects.getDashboardWithVisualization();
-        val dashboardResponseEntity = testRestTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
+        val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
         val resultDashboard = dashboardResponseEntity.getBody()
         assertEquals(dashboardRepository.findOne(resultDashboard.id), resultDashboard)
@@ -72,7 +83,7 @@ class SaveDashboardIT() {
     @Test
     fun `test create when return dashboard with unknown visualization object return dashboard`() {
         val dashboard = DataSamplesObjects.getDashboardWithUknownVisualizationJsonString();
-        val dashboardResponseEntity = testRestTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
+        val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
         val resultDashboard = dashboardResponseEntity.getBody()
         assertEquals(dashboardRepository.findOne(resultDashboard.id), resultDashboard)
@@ -81,7 +92,7 @@ class SaveDashboardIT() {
     @Test
     fun `test create when save dashboard and with id then throws WrongInputValue exception`() {
         val dashboard = DataSamplesObjects.getDashboard().copy(id = "blabla");
-        val dashboardResponseEntity = testRestTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Map::class.java)
+        val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Map::class.java)
         val requestBody = dashboardResponseEntity.body
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.BAD_REQUEST)
         assertEquals(requestBody.get("errorMessage"), "You cannot create a dashboard with id")
@@ -92,14 +103,14 @@ class SaveDashboardIT() {
     @Test
     fun `test update when exists dashboard then update dashboard and return it`() {
         val entity = HttpEntity(DataSamplesObjects.getDashboard(), HttpHeaders())
-        val response = testRestTemplate.exchange(getRequestPathFor("dashboards", id), HttpMethod.PUT, entity, Void::class.java)
+        val response = restTemplate.exchange(getRequestPathFor("dashboards", id), HttpMethod.PUT, entity, Void::class.java)
         assertEquals(response.getStatusCode(), HttpStatus.NO_CONTENT)
     }
 
     @Test
     fun `test update when not exists dashboard then throws EntityNotFound exception`() {
         val entity = HttpEntity(DataSamplesObjects.getDashboard(), HttpHeaders())
-        val response = testRestTemplate.exchange(getRequestPathFor("dashboards", "not_found"), HttpMethod.PUT, entity, Map::class.java)
+        val response = restTemplate.exchange(getRequestPathFor("dashboards", "not_found"), HttpMethod.PUT, entity, Map::class.java)
         assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND)
         val result = response.body
         assertEquals(result.get("errorMessage"), "Unable to update dashboard: Dashboard with id[not_found] not found")

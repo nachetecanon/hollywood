@@ -1,17 +1,17 @@
 package net.pi.platform.hollywood.service
 
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertTrue
 import net.pi.platform.common.api.exception.EntityNotFoundException
 import net.pi.platform.common.api.exception.WrongInputValueException
 import net.pi.platform.hollywood.DataSamplesObjects
 import net.pi.platform.hollywood.repository.DashboardRepository
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.mockito.BDDMockito.given
 import org.mockito.Matchers
 import org.mockito.Mockito.*
 
-class DashboardServiceImplTest() {
+class DashboardServiceImplTest {
 
     val dashboardRepository: DashboardRepository = mock(DashboardRepository::class.java)
     val dashboardService: DashboardService = DashboardService(dashboardRepository)
@@ -41,8 +41,8 @@ class DashboardServiceImplTest() {
     fun `test list all dashboards`() {
         val dashboard = DataSamplesObjects.getDashboard();
         given(dashboardRepository.findAll()).willReturn(listOf(dashboard))
-        val dashboards = dashboardService.listAll();
-        assertEquals(dashboards.size, 1);
+        val dashboards = dashboardService.listAll()
+        assertEquals(dashboards.size, 1)
         assertTrue(dashboards.equals(listOf(dashboard)))
         verify<DashboardRepository>(this.dashboardRepository, times(1)).findAll()
         verifyNoMoreInteractions(this.dashboardRepository)
