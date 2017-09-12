@@ -34,3 +34,16 @@ Launch unit and integration tests:
 ```sh
 mvn clean verify
 ```
+
+## Startup Hollywood Service stack
+
+There are two options, launch plain stack or launch stack with debug configuration:
+
+1. Plain stack
+```sh
+docker-compose -f docker-compose.yml up --build
+```
+2. Stack with debug config
+```sh
+docker-compose -f docker-compose-debug.yml up --build
+```

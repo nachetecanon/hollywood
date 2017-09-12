@@ -1,0 +1,24 @@
+version: '2'
+services:
+  hollywood-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8484:8081
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+    depends_on:
+      - mongo
+    links:
+      - mongo:mongo
+  mongo:
+    ports:
+      - 27017:27017/tcp
+    environment:
+      - MONGO_ADMIN_PASSWORD=admin
+      - MONGO_USERNAME_1=localUser
+      - MONGO_PASSWORD_1=local
+      - MONGO_DATABASE_1=hollywood
+      - MONGO_ROLE_1=readWrite
+    image: docker-test.pibenchmark.com/pi-mongo:3.2

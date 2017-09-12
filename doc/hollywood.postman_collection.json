@@ -1,0 +1,175 @@
+{
+	"variables": [],
+	"info": {
+		"name": "hollywood",
+		"_postman_id": "ba45ca04-2fb7-f288-aeb2-c2a9d83684d8",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "access token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"access_token\", data.access_token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://login-test.pibenchmark.com/auth/realms/PI/protocol/openid-connect/token",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "username",
+							"value": "das.test",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "client_id",
+							"value": "data-access-service",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "new dashboard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"dashboard-id\", data.id);",
+							"tests[\"Status code is 201\"] = responseCode.code === 201;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{hollywood-service}}/dashboards",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"this is an updated dashboard\",\n\t\"widgets\": [\n\t\t{\n\t\t\t\"name\": \"this is an updated widget\",\n\t\t\t\"position\": {\n\t\t\t\t\"x\": 0,\n\t\t\t\t\"y\": 0,\n\t\t\t\t\"rows\": 12,\n\t\t\t\t\"cols\": 12\n\t\t\t}\n\t\t}\n\t]\n}"
+				},
+				"description": "new dashboard"
+			},
+			"response": []
+		},
+		{
+			"name": "update dashboard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 204\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{hollywood-service}}/dashboards/{{dashboard-id}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"this is an updated dashboard\",\n\t\"widgets\": [\n\t\t{\n\t\t\t\"name\": \"this is an updated widget\",\n\t\t\t\"position\": {\n\t\t\t\t\"x\": 0,\n\t\t\t\t\"y\": 0,\n\t\t\t\t\"rows\": 12,\n\t\t\t\t\"cols\": 12\n\t\t\t}\n\t\t}\n\t]\n}"
+				},
+				"description": "update dashboard"
+			},
+			"response": []
+		},
+		{
+			"name": "get all dashboard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{hollywood-service}}/dashboards",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "get all dashboard"
+			},
+			"response": []
+		}
+	]
+}

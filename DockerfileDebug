@@ -1,0 +1,13 @@
+FROM docker-test.pibenchmark.com/pi-java:8
+EXPOSE 8081
+EXPOSE 8001
+
+ADD target/hollywood-service-*.jar app.jar
+
+ENV JVM_OPTIONS -Xmx256m
+
+# To reduce Tomcat startup time we added a system property pointing to "/dev/urandom" (see Spring Boot docs)
+ENTRYPOINT ["java", \
+            "-Xdebug", "-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n", \
+            "-Djava.security.egd=file:/dev/./urandom", \
+            "-jar","/app.jar"]
