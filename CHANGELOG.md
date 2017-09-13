@@ -1,3 +1,8 @@
+#### [0.4.1](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.4.1) (13-09-2017) [#8](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/8/overview) [[PIP-216](https://jira.pibenchmark.com/browse/PIP-216)] add visualization parameter to Widget Entity
+
+* Add the vidualization parameter
+* Add the new object with this parameter to test
+
 ### [0.4.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.4.0) (05-09-2017) [#7](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/7/overview) [[PIP-222](https://jira.pibenchmark.com/browse/PIP-222)] fix dont dave dashboard with id
 
 + Add test that validates that when you send a id with same value

@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
+import org.springframework.http.*
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
@@ -50,13 +47,31 @@ class SaveDashboardIT() {
     }
 
     @After
-    fun tearDonw() {
+    fun tearDown() {
         dashboardRepository.deleteAll()
     }
 
     @Test
     fun `test create when save dashboard then return dashboard`() {
         val dashboard = DataSamplesObjects.getDashboard();
+        val dashboardResponseEntity = testRestTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
+        assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
+        val resultDashboard = dashboardResponseEntity.getBody()
+        assertEquals(dashboardRepository.findOne(resultDashboard.id), resultDashboard)
+    }
+
+    @Test
+    fun `test create when save dashboard with visualization return dashboard with that visualization`() {
+        val dashboard = DataSamplesObjects.getDashboardWithVisualization();
+        val dashboardResponseEntity = testRestTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
+        assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
+        val resultDashboard = dashboardResponseEntity.getBody()
+        assertEquals(dashboardRepository.findOne(resultDashboard.id), resultDashboard)
+    }
+
+    @Test
+    fun `test create when return dashboard with unknown visualization object return dashboard`() {
+        val dashboard = DataSamplesObjects.getDashboardWithUknownVisualizationJsonString();
         val dashboardResponseEntity = testRestTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
         val resultDashboard = dashboardResponseEntity.getBody()

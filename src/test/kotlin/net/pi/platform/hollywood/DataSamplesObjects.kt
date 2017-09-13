@@ -14,8 +14,54 @@ class DataSamplesObjects {
                     widgets = listOf(
                             Widget(id = null, name = "name-widget"
                                     , bookmarked = true,
+                                    visualization = null,
                                     position = WidgetPosition(x = 0, y = 1, rows = 2, cols = 2))))
         }
+
+
+        fun getDashboardWithVisualization(): Dashboard {
+            return getDashboard().copy(widgets = listOf(
+                    Widget(id = null, name = "name-widget"
+                            , bookmarked = true,
+                            visualization = hashMapOf("someParameter" to 1,
+                                    "otherValue" to WidgetPosition(x = 0, y = 1, rows = 2, cols = 2)),
+                            position = WidgetPosition(x = 0, y = 1, rows = 2, cols = 2))))
+        }
+
+
+        fun getDashboardWithUknownVisualizationJsonString() = """ {
+	"name": "Testing dashboard",
+	"widgets": [{
+		"bookmarked": false,
+		"name": "First widget",
+        "visualization" : {
+            "someParameter" : 1,
+            "otherParameter" : 3
+        },
+		"position": {
+			"x": 0,
+			"y": 0,
+			"cols": 1,
+			"rows": 2
+		}
+	}, {
+		"bookmarked": true,
+		"name": "Block 1",
+        "visualization" : {
+            "someParameter" : 1,
+            "otherParameter" : {
+            "a" : 3
+            }
+        },
+		"position": {
+			"x": 1,
+			"y": 0,
+			"cols": 1,
+			"rows": 1
+		}
+	}]
+    }
+        """.trimIndent()
     }
 }
 
