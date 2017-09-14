@@ -1,3 +1,7 @@
+#### [0.5.2](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.5.2) (14-09-2017) [#12](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/12/overview) [*no issue*] 280 put limit of charac
+
+* Put limit of characters on name of widget and dashboard
+
 #### [0.5.1](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.5.1) (14-09-2017) [#11](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/11/overview) [[PIP-247](https://jira.pibenchmark.com/browse/PIP-247)] Adding Keycloack authentication:
 
 -Enabling Keycloak authentication
