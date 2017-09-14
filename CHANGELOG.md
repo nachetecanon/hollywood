@@ -1,3 +1,11 @@
+#### [0.5.1](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.5.1) (14-09-2017) [#11](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/11/overview) [[PIP-247](https://jira.pibenchmark.com/browse/PIP-247)] Adding Keycloack authentication:
+
+-Enabling Keycloak authentication
+ -Tests adapted to add the authentication header
+ -Added ClientHttpRequestInterceptor to test authentication
+ -Kotlin refactor to improve the code quality
+ -Tests ignored to avoid dependencies issue; it will be fixed soon
+
 ### [0.5.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.5.0) (14-09-2017) [#9](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/9/overview) [[PIP-159](https://jira.pibenchmark.com/browse/PIP-159)] create PUT endpoint to update dashboards
 
 - New endpoint

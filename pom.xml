@@ -6,7 +6,7 @@
 
     <groupId>net.pi.platform.hollywood</groupId>
     <artifactId>hollywood-service</artifactId>
-    <version>0.5.1-SNAPSHOT</version>
+    <version>0.5.1</version>
     <packaging>jar</packaging>
 
     <name>hollywood-service</name>
