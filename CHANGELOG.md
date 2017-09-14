@@ -1,3 +1,10 @@
+### [0.5.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.5.0) (14-09-2017) [#9](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/9/overview) [[PIP-159](https://jira.pibenchmark.com/browse/PIP-159)] create PUT endpoint to update dashboards
+
+- New endpoint
+- Edit Services (include javadoc, refactor to save/create/update methods)
+- Unit / IT tests
+- Include a proper README
+
 #### [0.4.1](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.4.1) (13-09-2017) [#8](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/8/overview) [[PIP-216](https://jira.pibenchmark.com/browse/PIP-216)] add visualization parameter to Widget Entity
 
 * Add the vidualization parameter
