@@ -6,13 +6,13 @@ import org.springframework.boot.web.support.SpringBootServletInitializer
 
 
 @SpringBootApplication(scanBasePackages = arrayOf("net.pi.platform"))
-class HollywoodServiceApplication : SpringBootServletInitializer() {
+class Application : SpringBootServletInitializer() {
 
     companion object {
         @Throws(Exception::class)
         @JvmStatic
         fun main(args: Array<String>) {
-            SpringApplication.run(HollywoodServiceApplication::class.java, *args)
+            SpringApplication.run(Application::class.java, *args)
         }
     }
 }

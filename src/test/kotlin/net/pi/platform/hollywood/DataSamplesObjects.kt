@@ -2,20 +2,20 @@ package net.pi.platform.hollywood
 
 import net.pi.platform.hollywood.model.Dashboard
 import net.pi.platform.hollywood.model.Widget
-import net.pi.platform.hollywood.model.WidgetPosition
+import net.pi.platform.hollywood.model.Position
 
 class DataSamplesObjects {
 
     companion object Dashboards {
 
         fun getDashboard(): Dashboard {
-            return Dashboard(id = null,
-                    name = "name",
-                    widgets = listOf(
-                            Widget(id = null, name = "name-widget"
-                                    , bookmarked = true,
-                                    visualization = null,
-                                    position = WidgetPosition(x = 0, y = 1, rows = 2, cols = 2))))
+            return Dashboard(
+                    id = null,
+                    name = "longerName",
+                    widgets = listOf(Widget(id = null, name = "name-widget", bookmarked = true, visualization = null,
+                            position = Position(x = 0, y = 1, rows = 2, cols = 2))),
+                    position = Position(x = 0, y = 1, rows = 2, cols = 2)
+            )
         }
 
 
@@ -24,8 +24,8 @@ class DataSamplesObjects {
                     Widget(id = null, name = "name-widget"
                             , bookmarked = true,
                             visualization = hashMapOf("someParameter" to 1,
-                                    "otherValue" to WidgetPosition(x = 0, y = 1, rows = 2, cols = 2)),
-                            position = WidgetPosition(x = 0, y = 1, rows = 2, cols = 2))))
+                                    "otherValue" to Position(x = 0, y = 1, rows = 2, cols = 2)),
+                            position = Position(x = 0, y = 1, rows = 2, cols = 2))))
         }
 
 
@@ -59,7 +59,8 @@ class DataSamplesObjects {
 			"cols": 1,
 			"rows": 1
 		}
-	}]
+	}],
+    "position": { "x": 0, "y": 0, "cols": 1, "rows": 2 }
     }
         """.trimIndent()
     }

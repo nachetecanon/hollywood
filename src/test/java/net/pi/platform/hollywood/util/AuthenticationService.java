@@ -59,12 +59,6 @@ public class AuthenticationService {
     return new HttpEntity(body, headers);
   }
 
-  /**
-   * Get Access Token using <username, password>
-   * @param username
-   * @param password
-   * @return
-   */
   public String getAuthenticationToken(String username, String password) {
     HttpEntity headers = buildAuthenticationHeaders(username, password);
     ResponseEntity response = restTemplate.postForEntity(getServiceUrl(), headers, Map.class);
@@ -72,17 +66,10 @@ public class AuthenticationService {
     return body.get("access_token");
   }
 
-  /**
-   * Get HttpEntity with empty body and authorization header
-   * @param username
-   * @param password
-   * @return
-   */
   public HttpHeaders getRequestHeaders(String username, String password) {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
     headers.set(AUTHORIZATION, format("Bearer %s", getAuthenticationToken(username, password)));
     return headers;
   }
-
 }

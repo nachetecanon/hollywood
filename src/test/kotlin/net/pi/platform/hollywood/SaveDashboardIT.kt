@@ -4,7 +4,6 @@ import net.pi.platform.hollywood.model.Dashboard
 import net.pi.platform.hollywood.repository.DashboardRepository
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,7 +23,7 @@ import javax.annotation.PostConstruct
 
 
 @RunWith(SpringRunner::class)
-@ContextConfiguration(classes = arrayOf(HollywoodServiceApplication::class))
+@ContextConfiguration(classes = arrayOf(Application::class))
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("integration-test")
 class SaveDashboardIT {
@@ -45,17 +44,12 @@ class SaveDashboardIT {
     lateinit var clientHttpRequestInterceptor: ClientHttpRequestInterceptor
 
     @Value("\${local.server.port}")
-    private val port: Int? = null;
+    private val port: Int? = null
 
     private var id: String? = null
 
     @PostConstruct
     fun setUp() = restTemplate.restTemplate.interceptors.add(clientHttpRequestInterceptor)
-
-    @Before
-    fun cleanUp() {
-        dashboardRepository.deleteAll();
-    }
 
     @After
     fun tearDown() {
@@ -64,7 +58,7 @@ class SaveDashboardIT {
 
     @Test
     fun `test create when save dashboard then return dashboard`() {
-        val dashboard = DataSamplesObjects.getDashboard();
+        val dashboard = DataSamplesObjects.getDashboard()
         val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
         val resultDashboard = dashboardResponseEntity.getBody()
@@ -73,7 +67,7 @@ class SaveDashboardIT {
 
     @Test
     fun `test create when save dashboard with visualization return dashboard with that visualization`() {
-        val dashboard = DataSamplesObjects.getDashboardWithVisualization();
+        val dashboard = DataSamplesObjects.getDashboardWithVisualization()
         val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
         val resultDashboard = dashboardResponseEntity.getBody()
@@ -82,7 +76,7 @@ class SaveDashboardIT {
 
     @Test
     fun `test create when return dashboard with unknown visualization object return dashboard`() {
-        val dashboard = DataSamplesObjects.getDashboardWithUknownVisualizationJsonString();
+        val dashboard = DataSamplesObjects.getDashboardWithUknownVisualizationJsonString()
         val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
         val resultDashboard = dashboardResponseEntity.getBody()
@@ -91,7 +85,7 @@ class SaveDashboardIT {
 
     @Test
     fun `test create when save dashboard and with id then throws WrongInputValue exception`() {
-        val dashboard = DataSamplesObjects.getDashboard().copy(id = "blabla");
+        val dashboard = DataSamplesObjects.getDashboard().copy(id = "blabla")
         val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Map::class.java)
         val requestBody = dashboardResponseEntity.body
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.BAD_REQUEST)
@@ -102,8 +96,11 @@ class SaveDashboardIT {
 
     @Test
     fun `test update when exists dashboard then update dashboard and return it`() {
+        val dashboard = DataSamplesObjects.getDashboard()
+        val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
+
         val entity = HttpEntity(DataSamplesObjects.getDashboard(), HttpHeaders())
-        val response = restTemplate.exchange(getRequestPathFor("dashboards", id), HttpMethod.PUT, entity, Void::class.java)
+        val response = restTemplate.exchange(getRequestPathFor("dashboards", dashboardResponseEntity.body.id), HttpMethod.PUT, entity, Void::class.java)
         assertEquals(response.getStatusCode(), HttpStatus.NO_CONTENT)
     }
 

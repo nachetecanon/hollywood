@@ -10,19 +10,18 @@
     <packaging>jar</packaging>
 
     <name>hollywood-service</name>
-    <description>Service of Hollywood</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.6.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <kotlin.version>1.1.4</kotlin.version>
+        <kotlin.version>1.1.4-3</kotlin.version>
         <java.version>1.8</java.version>
         <keycloak.version>2.5.4.Final</keycloak.version>
     </properties>
@@ -117,35 +116,55 @@
     </dependencyManagement>
 
     <build>
-        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
         <plugins>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
             <plugin>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <version>${kotlin.version}</version>
+
                 <configuration>
                     <compilerPlugins>
                         <plugin>spring</plugin>
                     </compilerPlugins>
-                    <jvmTarget>1.8</jvmTarget>
+                    <jvmTarget>${java.version}</jvmTarget>
                 </configuration>
+
                 <executions>
+
                     <execution>
                         <id>compile</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <sourceDir>src/main/kotlin</sourceDir>
+                            </sourceDirs>
+                        </configuration>
                     </execution>
+
                     <execution>
                         <id>test-compile</id>
                         <phase>test-compile</phase>
                         <goals>
                             <goal>test-compile</goal>
                         </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <sourceDir>src/test/kotlin</sourceDir>
+                            </sourceDirs>
+                        </configuration>
                     </execution>
+
                 </executions>
+
                 <dependencies>
                     <dependency>
                         <groupId>org.jetbrains.kotlin</groupId>
@@ -153,10 +172,7 @@
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

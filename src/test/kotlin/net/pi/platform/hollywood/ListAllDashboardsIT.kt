@@ -24,7 +24,7 @@ import javax.annotation.PostConstruct
 
 
 @RunWith(SpringRunner::class)
-@ContextConfiguration(classes = arrayOf(HollywoodServiceApplication::class))
+@ContextConfiguration(classes = arrayOf(Application::class))
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("integration-test")
 class ListAllDashboardsIT {
@@ -44,7 +44,7 @@ class ListAllDashboardsIT {
     @Autowired
     lateinit var clientHttpRequestInterceptor: ClientHttpRequestInterceptor
 
-    val localhost_uri = "http://localhost:";
+    val localhost_uri = "http://localhost:"
 
     @Value("\${local.server.port}")
     private val port: Int? = null
@@ -68,8 +68,8 @@ class ListAllDashboardsIT {
 
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
 
-        val resultDashboards = dashboardResponseEntity.getBody();
-        val testResults: List<Dashboard> = dashboardRepository.findAll();
+        val resultDashboards = dashboardResponseEntity.getBody()
+        val testResults: List<Dashboard> = dashboardRepository.findAll()
         assertEquals(resultDashboards, testResults)
     }
 }
