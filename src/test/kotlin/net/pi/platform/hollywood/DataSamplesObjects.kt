@@ -14,7 +14,8 @@ class DataSamplesObjects {
                     name = "longerName",
                     widgets = listOf(Widget(id = null, name = "name-widget", bookmarked = true, visualization = null,
                             position = Position(x = 0, y = 1, rows = 2, cols = 2))),
-                    position = Position(x = 0, y = 1, rows = 2, cols = 2)
+                    position = Position(x = 0, y = 1, rows = 2, cols = 2),
+                    bookmarked = true
             )
         }
 
@@ -25,7 +26,9 @@ class DataSamplesObjects {
                             , bookmarked = true,
                             visualization = hashMapOf("someParameter" to 1,
                                     "otherValue" to Position(x = 0, y = 1, rows = 2, cols = 2)),
-                            position = Position(x = 0, y = 1, rows = 2, cols = 2))))
+                            position = Position(x = 0, y = 1, rows = 2, cols = 2))),
+                    bookmarked = true
+            )
         }
 
 
