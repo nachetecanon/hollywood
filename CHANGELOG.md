@@ -1,3 +1,7 @@
+### [0.7.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.7.0) (28-09-2017) [#14](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/14/overview) [[PIP-334](https://jira.pibenchmark.com/browse/PIP-334)] change dashboard entity on backend
+
+[PIP-334] Add bookmarked to Dashboard.
+
 ### [0.6.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.6.0) (27-09-2017) [#13](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/13/overview) [[PIP-326](https://jira.pibenchmark.com/browse/PIP-326)] Update Dashboard Entity + Refactor + Integration Test Fix.
 
 [PIP-326] Update Dashboard Entity + Refactor + Integration Test Fix.
