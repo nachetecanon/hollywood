@@ -15,7 +15,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 @RunWith(Karate.class)
 @CucumberOptions(plugin = {"html:target/cucumber", "json:target/cucumber/cucumber-json-report.json"}, tags = {"~@ignore"})
-public class HollywoodTestIT {
+public class HollywoodIT {
 
     static {
         System.setProperty("spring.cloud.config.enabled", "false");
@@ -23,7 +23,7 @@ public class HollywoodTestIT {
     }
 
     private static ConfigurableApplicationContext context;
-    private static final Logger logger = LoggerFactory.getLogger(HollywoodTestIT.class);
+    private static final Logger logger = LoggerFactory.getLogger(HollywoodIT.class);
 
     @BeforeClass
     public static void beforeClass() throws Exception {
