@@ -27,7 +27,7 @@ all the unit tests will be executed and the package won't be built if some of th
 
 Make sure you have set up integration resources:
 ```sh
-docker-compose -f docker-integration-test.yml up --build
+docker-compose -f docker-compose-integration-test.yml up --build
 ```
 
 Launch unit and integration tests:
