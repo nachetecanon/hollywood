@@ -5,10 +5,10 @@ Feature: Update a dashboard using invalid authentication
   I want to create a dashboard and after that update it
 
   Background:
-    * def result = callonce read('classpath:api/dashboards/post/create-dashboard.feature')
+    * def result = callonce read('classpath:karate/api/dashboards/post/create-dashboard.feature')
 
   Scenario: Update a dashboard using an invalid token
-    * def validDashboardRequest = call read('classpath:utility/funcs/generate-valid-dashboard.js')
+    * def validDashboardRequest = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
     * set validDashboardRequest.id = result.dashboardId
     Given url urlBase
     And path '/dashboards/' + result.dashboardId
@@ -20,7 +20,7 @@ Feature: Update a dashboard using invalid authentication
   #ignore until Max response
   @ignore
   Scenario: Update a dashboard without authentication header
-    * def validDashboardRequest = call read('classpath:utility/funcs/generate-valid-dashboard.js')
+    * def validDashboardRequest = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
     * set validDashboardRequest.id = result.dashboardId
     Given url urlBase
     And path '/dashboards/' + result.dashboardId

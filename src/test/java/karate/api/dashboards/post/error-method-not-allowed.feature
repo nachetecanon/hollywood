@@ -6,7 +6,7 @@ Feature: Try to create a new dashboard with not allowed http methods
 
   Scenario: A user makes a patch to the create endpoint
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def message = call read('classpath:utility/funcs/generate-valid-dashboard.js')
+    * def message = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
     Given url urlBase
     And path '/dashboards'
     And header authorization = 'Bearer ' + auth.token
@@ -23,7 +23,7 @@ Feature: Try to create a new dashboard with not allowed http methods
 
   Scenario: A user makes a patch to the create endpoint
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def message = call read('classpath:utility/funcs/generate-valid-dashboard.js')
+    * def message = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
     Given url urlBase
     And path '/dashboards'
     And header authorization = 'Bearer ' + auth.token
@@ -40,7 +40,7 @@ Feature: Try to create a new dashboard with not allowed http methods
 
   Scenario: A user makes a delete to the create endpoint
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def message = call read('classpath:utility/funcs/generate-valid-dashboard.js')
+    * def message = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
     Given url urlBase
     And path '/dashboards'
     And header authorization = 'Bearer ' + auth.token

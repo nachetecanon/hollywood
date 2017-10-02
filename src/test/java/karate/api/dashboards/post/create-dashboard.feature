@@ -6,7 +6,7 @@ Feature: Create a new dashboard
 
   Scenario: Create a dashboard with only mandatory fields
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def validDashboard = call read('classpath:utility/funcs/generate-valid-dashboard.js')
+    * def validDashboard = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
     Given url urlBase
     And path '/dashboards'
     And header authorization = 'Bearer ' + auth.token
@@ -19,7 +19,7 @@ Feature: Create a new dashboard
 
   Scenario: Create a dashboard
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def validDashboardAllParametersRequest = call read('classpath:utility/funcs/generate-valid-dashboard.js')
+    * def validDashboardAllParametersRequest = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
     Given url urlBase
     And path '/dashboards'
     And header authorization = 'Bearer ' + auth.token

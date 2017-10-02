@@ -6,7 +6,7 @@ Feature: Try to create a new dashboard with missing mandatory parameters
 
   Scenario: Create a dashboard without name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def message = call read('classpath:utility/funcs/generate-valid-dashboard.js')
+    * def message = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
     Given url urlBase
     And path '/dashboards'
     And header authorization = 'Bearer ' + auth.token
@@ -24,7 +24,7 @@ Feature: Try to create a new dashboard with missing mandatory parameters
 
   Scenario: Create a dashboard without a widget without name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def message = call read('classpath:utility/funcs/generate-valid-dashboard.js')
+    * def message = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
     Given url urlBase
     And path '/dashboards'
     And header authorization = 'Bearer ' + auth.token

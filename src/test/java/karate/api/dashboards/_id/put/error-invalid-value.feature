@@ -5,11 +5,11 @@ Feature: Try to update a dashboard with invalid mandatory parameters
   I want to update a dashboard with missing mandatory parameters
 
   Background:
-    * def result = callonce read('classpath:api/dashboards/post/create-dashboard.feature')
+    * def result = callonce read('classpath:karate/api/dashboards/post/create-dashboard.feature')
 
   Scenario: Update a dashboard with too short parameter dashboard name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def validDashboardRequest = call read('classpath:utility/funcs/generate-valid-dashboard.js')
+    * def validDashboardRequest = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
     * set validDashboardRequest.id = result.dashboardId
     Given url urlBase
     And path '/dashboards/' + result.dashboardId
@@ -23,7 +23,7 @@ Feature: Try to update a dashboard with invalid mandatory parameters
 
   Scenario: Update a dashboard with too long parameter dashboard name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def validDashboardRequest = call read('classpath:utility/funcs/generate-valid-dashboard.js')
+    * def validDashboardRequest = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
     * set validDashboardRequest.id = result.dashboardId
     Given url urlBase
     And path '/dashboards/' + result.dashboardId
@@ -37,7 +37,7 @@ Feature: Try to update a dashboard with invalid mandatory parameters
 
   Scenario: Update a dashboard with too short parameter dashboard widget name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def validDashboardRequest = call read('classpath:utility/funcs/generate-valid-dashboard.js')
+    * def validDashboardRequest = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
     * set validDashboardRequest.id = result.dashboardId
     Given url urlBase
     And path '/dashboards/' + result.dashboardId
@@ -51,7 +51,7 @@ Feature: Try to update a dashboard with invalid mandatory parameters
 
   Scenario: Update a dashboard with too long parameter dashboard widget name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def validDashboardRequest = call read('classpath:utility/funcs/generate-valid-dashboard.js')
+    * def validDashboardRequest = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
     * set validDashboardRequest.id = result.dashboardId
     Given url urlBase
     And path '/dashboards/' + result.dashboardId
@@ -66,7 +66,7 @@ Feature: Try to update a dashboard with invalid mandatory parameters
 
   Scenario: Update a dashboard with invalid null parameter dashboard name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def validDashboardRequest = call read('classpath:utility/funcs/generate-valid-dashboard.js')
+    * def validDashboardRequest = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
     * set validDashboardRequest.id = result.dashboardId
     Given url urlBase
     And path '/dashboards/' + result.dashboardId
@@ -81,7 +81,7 @@ Feature: Try to update a dashboard with invalid mandatory parameters
 
   Scenario: Update a dashboard with invalid null mandatory parameter dashboard widget name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def validDashboardRequest = call read('classpath:utility/funcs/generate-valid-dashboard.js')
+    * def validDashboardRequest = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
     * set validDashboardRequest.id = result.dashboardId
     Given url urlBase
     And path '/dashboards/' + result.dashboardId
