@@ -1,8 +1,8 @@
 package net.pi.platform.hollywood
 
 import net.pi.platform.hollywood.model.Dashboard
-import net.pi.platform.hollywood.model.Widget
 import net.pi.platform.hollywood.model.Position
+import net.pi.platform.hollywood.model.Widget
 
 class DataSamplesObjects {
 
@@ -13,6 +13,7 @@ class DataSamplesObjects {
                     id = null,
                     name = "longerName",
                     widgets = listOf(Widget(id = null, name = "name-widget", bookmarked = true, visualization = null,
+                            app = null,
                             position = Position(x = 0, y = 1, rows = 2, cols = 2))),
                     position = Position(x = 0, y = 1, rows = 2, cols = 2),
                     bookmarked = true
@@ -26,6 +27,7 @@ class DataSamplesObjects {
                             , bookmarked = true,
                             visualization = hashMapOf("someParameter" to 1,
                                     "otherValue" to Position(x = 0, y = 1, rows = 2, cols = 2)),
+                            app = hashMapOf("parameter" to 3),
                             position = Position(x = 0, y = 1, rows = 2, cols = 2))),
                     bookmarked = true
             )
