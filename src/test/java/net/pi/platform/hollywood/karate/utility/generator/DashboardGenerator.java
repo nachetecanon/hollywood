@@ -1,4 +1,4 @@
-package karate.utility.generator;
+package net.pi.platform.hollywood.karate.utility.generator;
 
 import com.github.javafaker.Faker;
 import java.util.*;
@@ -37,7 +37,16 @@ public class DashboardGenerator {
         map.put("id", faker.number().digits(5));
         map.put("bookmarked", faker.bool().bool());
         map.put("name", faker.app().name());
-        map.put("visualization",null);
+
+        Map<String, Object> mapVisualization = new LinkedHashMap<>();
+        mapVisualization.put("someParameter","1");
+        mapVisualization.put("otherParameter","2");
+        map.put("visualization",mapVisualization);
+
+        Map<String, Object> mapApp = new LinkedHashMap<>();
+        mapApp.put("app1","Parameter1");
+        mapApp.put("app2","Parameter2");
+        map.put("app",mapApp);
         map.put("position", getWidgetPosition());
 
         return map;

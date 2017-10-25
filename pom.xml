@@ -38,6 +38,11 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
@@ -187,7 +192,7 @@
             <testResource>
                 <directory>src/test/java</directory>
                 <excludes>
-                    <exclude>karate/*.java</exclude>
+                    <exclude>net.pi.platform.hollywood.karate/*.java</exclude>
                 </excludes>
             </testResource>
         </testResources>
@@ -349,7 +354,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${basedir}/scripts/integration-env-start.sh</executable>
+                            <executable>${basedir}/bin/integration-env-start.sh</executable>
                         </configuration>
                     </execution>
                     <execution>
@@ -359,7 +364,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${basedir}/scripts/integration-env-stop.sh</executable>
+                            <executable>${basedir}/bin/integration-env-stop.sh</executable>
                             <arguments>
                                 <argument>stop</argument>
                             </arguments>

@@ -1,6 +1,6 @@
 #### [0.7.1](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.7.1) (02-10-2017) [#15](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/15/overview) [[BAF-168](https://jira.pibenchmark.com/browse/BAF-168)] move test to backend service repository
 
-* BAF 168 - Move karate tests to backend repository
+* BAF 168 - Move net.pi.platform.hollywood.karate tests to backend repository
 * Fixed path problems
 
 ### [0.7.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.7.0) (28-09-2017) [#14](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/14/overview) [[PIP-334](https://jira.pibenchmark.com/browse/PIP-334)] change dashboard entity on backend

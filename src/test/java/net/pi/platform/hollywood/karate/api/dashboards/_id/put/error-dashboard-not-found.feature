@@ -6,7 +6,7 @@ Feature: Try to Update a dashboard not found
 
   Scenario: Try to Update a dashboard not found
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def validDashboardRequest = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
+    * def validDashboardRequest = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
     Given url urlBase
     And path '/dashboards/' + 'notFound'
     And header authorization = 'Bearer ' + auth.token

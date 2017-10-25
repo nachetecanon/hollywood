@@ -23,6 +23,14 @@ function() {
     config.username = 'hollywood.be';
     config.password = 'test';
   }
+    else if (env == 'local') {
+    config.keycloakUrl = 'https://login-test.pibenchmark.com/auth';
+    config.urlBase = 'http://localhost:8075/api';
+    config.username = 'hollywood.be';
+    config.password = 'test';
+    }
+
+
   // don't waste time waiting for a connection or if servers don't respond within 5 seconds
   karate.configure('connectTimeout', 5000);
   karate.configure('readTimeout', 5000);

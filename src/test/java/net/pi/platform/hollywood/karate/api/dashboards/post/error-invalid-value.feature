@@ -6,7 +6,7 @@ Feature: Try to create a new dashboard with invalid parameter name
 
   Scenario: Create a dashboard with longer name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def message = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
+    * def message = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
     Given url urlBase
     And path '/dashboards'
     And header authorization = 'Bearer ' + auth.token
@@ -24,7 +24,7 @@ Feature: Try to create a new dashboard with invalid parameter name
 
   Scenario: Create a widget with longer name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def message = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
+    * def message = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
     Given url urlBase
     And path '/dashboards'
     And header authorization = 'Bearer ' + auth.token
@@ -42,7 +42,7 @@ Feature: Try to create a new dashboard with invalid parameter name
 
   Scenario: Create a dashboard with ID that already exist
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def firstRequest = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
+    * def firstRequest = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
     Given url urlBase
     And path '/dashboards'
     And header authorization = 'Bearer ' + auth.token
@@ -50,7 +50,7 @@ Feature: Try to create a new dashboard with invalid parameter name
     When method post
     Then status 200
     And match response.name == firstRequest.name
-    * def secondRequest = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
+    * def secondRequest = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
     And url urlBase
     And path '/dashboards'
     And header authorization = 'Bearer ' + auth.token
@@ -68,7 +68,7 @@ Feature: Try to create a new dashboard with invalid parameter name
 
   Scenario: Create a dashboard with name null
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def message = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
+    * def message = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
     Given url urlBase
     And path '/dashboards'
     And header authorization = 'Bearer ' + auth.token
@@ -86,7 +86,7 @@ Feature: Try to create a new dashboard with invalid parameter name
 
   Scenario: Create a widget with name null
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def message = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
+    * def message = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
     Given url urlBase
     And path '/dashboards'
     And header authorization = 'Bearer ' + auth.token

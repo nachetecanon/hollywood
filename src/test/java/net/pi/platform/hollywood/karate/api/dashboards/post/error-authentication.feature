@@ -6,7 +6,7 @@ Feature: Create a new dashboard using invalid authentication
 
   Scenario: Create a dashboard using an invalid token
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def validDashboardAllParametersRequest = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
+    * def validDashboardAllParametersRequest = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
     Given url urlBase
     And path '/dashboards'
     And header authorization = 'Bearer invalid'
@@ -18,7 +18,7 @@ Feature: Create a new dashboard using invalid authentication
   @ignored
   Scenario: Create a dashboard without authentication header
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def validDashboard = call read('classpath:karate/utility/funcs/generate-valid-dashboard.js')
+    * def validDashboard = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
     Given url urlBase
     And path '/dashboards'
     And set validDashboard.widgets = []
