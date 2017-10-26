@@ -20,7 +20,6 @@ Feature: Create a new dashboard
   Scenario: Create a dashboard
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
     * def validDashboardAllParametersRequest = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
-    And print validDashboardAllParametersRequest
     Given url urlBase
     And path '/dashboards'
     And header authorization = 'Bearer ' + auth.token
