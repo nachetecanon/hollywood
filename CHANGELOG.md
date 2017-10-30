@@ -1,3 +1,5 @@
+#### [0.7.2](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.7.2) (30-10-2017) [#16](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/16/overview) [[PIP-435](https://jira.pibenchmark.com/browse/PIP-435)] add parameter app
+
 #### [0.7.1](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.7.1) (02-10-2017) [#15](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/15/overview) [[BAF-168](https://jira.pibenchmark.com/browse/BAF-168)] move test to backend service repository
 
 * BAF 168 - Move net.pi.platform.hollywood.karate tests to backend repository
