@@ -8,7 +8,7 @@ services:
       - 8484:8081
       - 8004:8001
     environment:
-      SPRING_PROFILES_ACTIVE: local
+      SPRING_PROFILES_ACTIVE: docker
     depends_on:
       - mongo
     links:
