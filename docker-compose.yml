@@ -7,7 +7,7 @@ services:
     ports:
       - 8484:8081
     environment:
-      SPRING_PROFILES_ACTIVE: local
+      SPRING_PROFILES_ACTIVE: docker
     depends_on:
       - mongo
     links:
