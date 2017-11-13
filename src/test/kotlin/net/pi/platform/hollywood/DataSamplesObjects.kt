@@ -12,6 +12,7 @@ class DataSamplesObjects {
             return Dashboard(
                     id = null,
                     name = "longerName",
+                    hidden = false,
                     widgets = listOf(Widget(id = null, name = "name-widget", bookmarked = true, visualization = null,
                             app = null,
                             position = Position(x = 0, y = 1, rows = 2, cols = 2))),
@@ -30,7 +31,8 @@ class DataSamplesObjects {
                                     "otherValue" to Position(x = 0, y = 1, rows = 2, cols = 2)),
                             app = hashMapOf("parameter" to 3),
                             position = Position(x = 0, y = 1, rows = 2, cols = 2))),
-                    bookmarked = true
+                    bookmarked = true,
+                    hidden = false
             )
         }
 
@@ -39,6 +41,7 @@ class DataSamplesObjects {
 	"name": "Testing dashboard",
 	"widgets": [{
 		"bookmarked": false,
+        "hidden":false,
 		"name": "First widget",
         "visualization" : {
             "someParameter" : 1,
