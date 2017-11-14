@@ -1,3 +1,8 @@
+### [0.8.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.8.0) (14-11-2017) [#19](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/19/overview) [[ZRKCRI-342](https://jira.pibenchmark.com/browse/ZRKCRI-342)] add hidden field to dashboard entity
+
++ Add hidden field to dasboard entity.
++ Update domain objects
+
 #### [0.7.3](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.7.3) (06-11-2017) [#18](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/18/overview) [[ZRKCRI-274](https://jira.pibenchmark.com/browse/ZRKCRI-274)] - Added images to a dashboard
 
 #### [0.7.2](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.7.2) (30-10-2017) [#16](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/16/overview) [[PIP-435](https://jira.pibenchmark.com/browse/PIP-435)] add parameter app
