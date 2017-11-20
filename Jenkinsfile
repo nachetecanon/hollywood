@@ -12,11 +12,13 @@ node('master') {
 
   if (!job.delegateMerge()) {
 
-     job.mvnCleanPackage()
+    job.mvnCleanVerify(false,'target/surefire-reports/TEST-*.xml','','target/cucumber','continuous-int')
 
-     job.dockerBuild()
+    job.codeQuality()
 
-     job.dockerPush()
+    job.dockerBuild()
+
+    job.dockerPush()
 
   }
 }
