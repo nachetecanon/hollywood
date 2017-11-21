@@ -1,3 +1,7 @@
+#### [0.8.1](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.8.1) (21-11-2017) [#20](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/20/overview) [[ZRKCRI-365](https://jira.pibenchmark.com/browse/ZRKCRI-365)] add link paramater
+
+Add link paramater to the dashboard entity.
+
 ### [0.8.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.8.0) (14-11-2017) [#19](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/19/overview) [[ZRKCRI-342](https://jira.pibenchmark.com/browse/ZRKCRI-342)] add hidden field to dashboard entity
 
 + Add hidden field to dasboard entity.
