@@ -2,7 +2,7 @@ function() {
   var env = karate.env; // get java system property 'karate.env'
   karate.log('karate.env system property was:', env);
   if (!env) {
-    env = 'qa';
+    env = 'local';
   }
   var config = { // base config
     env: env,

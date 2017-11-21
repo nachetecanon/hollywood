@@ -36,16 +36,16 @@ public class DashboardGenerator {
 
         map.put("id", faker.number().digits(5));
         map.put("bookmarked", faker.bool().bool());
-        map.put("name", faker.app().name());
+        map.put("name", "qa_" + faker.number().digits(5));
 
         Map<String, Object> mapVisualization = new LinkedHashMap<>();
-        mapVisualization.put("someParameter","1");
-        mapVisualization.put("otherParameter","2");
+        mapVisualization.put("someParameter",faker.number().numberBetween(0,1));
+        mapVisualization.put("otherParameter",faker.number().numberBetween(1,2));
         map.put("visualization",mapVisualization);
 
         Map<String, Object> mapApp = new LinkedHashMap<>();
-        mapApp.put("app1","Parameter1");
-        mapApp.put("app2","Parameter2");
+        mapApp.put("app1",faker.number().numberBetween(0,1));
+        mapApp.put("app2",faker.number().numberBetween(1,2));
         map.put("app",mapApp);
         map.put("position", getWidgetPosition());
 
@@ -53,9 +53,31 @@ public class DashboardGenerator {
 
     }
 
+    private Map<String, Object> getLink() {
+        Map<String, Object> map = new LinkedHashMap<>();
+
+        map.put("url", faker.food().ingredient());
+        map.put("type", faker.food().ingredient());
+
+        return map;
+
+    }
+
+    private Map<String, Object> getPosition() {
+
+        Map<String, Object> position = new LinkedHashMap<>();
+        position.put("cols",faker.number().numberBetween(0,1));
+        position.put("rows",faker.number().numberBetween(0,1));
+        position.put("x",faker.number().randomDigit());
+        position.put("y",faker.number().randomDigit());
+
+        return position;
+
+    }
+
     public List<Object> getWidgets(){
 
-        int numFields = faker.number().numberBetween(0, 4);
+        int numFields = faker.number().numberBetween(1, 4);
         List<Object> list = new LinkedList<>();
 
         for (int i = 0; i < numFields; i++){
@@ -68,18 +90,17 @@ public class DashboardGenerator {
 
         Map<String, Object> map = new LinkedHashMap<>();
 
-        map.put("bookmarked", "false");
         map.put("name", "qa_" + faker.number().digits(10));
-
-        Map<String, Object> position = new LinkedHashMap<>();
-        position.put("cols","1");
-        position.put("rows","1");
-        position.put("x","0");
-        position.put("y","0");
-        map.put("position",position);
+        map.put("bookmarked", faker.bool().bool());
+        map.put("hidden", faker.bool().bool());
+        map.put("image", faker.food().ingredient());
+        map.put("link", getLink());
+        map.put("position",getPosition());
         map.put("widgets", getWidgets());
         return map;
 
     }
+
+
 
 }

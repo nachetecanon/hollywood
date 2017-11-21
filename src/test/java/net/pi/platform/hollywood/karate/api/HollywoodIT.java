@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-
-
 @RunWith(Karate.class)
 @CucumberOptions(plugin = {"html:target/cucumber", "json:target/cucumber/cucumber-json-report" +
         ".json", "junit:target/cucumber/cucumber-junit.xml", "junit:target/cucumber/cucumber-junit" +

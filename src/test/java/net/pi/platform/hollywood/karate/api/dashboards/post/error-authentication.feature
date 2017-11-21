@@ -15,7 +15,7 @@ Feature: Create a new dashboard using invalid authentication
     Then status 401
 
   #ignore until Max response
-  @ignored
+  @ignore
   Scenario: Create a dashboard without authentication header
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
     * def validDashboard = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')

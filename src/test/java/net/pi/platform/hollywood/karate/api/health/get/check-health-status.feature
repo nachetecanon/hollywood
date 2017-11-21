@@ -1,4 +1,5 @@
 @api @health @check-health-status
+@ignore
 Feature: Check health status
   In order to have a Text Generator service working fine
   As a Sysadmin
@@ -23,7 +24,7 @@ Feature: Check health status
     }
     """
 
-  @ignore @manual
+  @manual
   Scenario: A user check health status but disk space is full
     Given url urlBase
     And path '/health'

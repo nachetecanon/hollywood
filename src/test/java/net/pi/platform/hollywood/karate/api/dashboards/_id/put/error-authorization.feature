@@ -10,9 +10,9 @@ Feature: Update a dashboard using invalid role
   Scenario: Update a dashboard using an invalid role
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: 'hollywood.test', password: '#(password)', client_id: "#(client_id)"}
     * def validDashboardRequest = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
-    * set validDashboardRequest.id = result.dashboardId
+    * set validDashboardRequest.id = result.response.id
     Given url urlBase
-    And path '/dashboards/' + result.dashboardId
+    And path '/dashboards/' + result.response.id
     And header authorization = 'Bearer ' + auth.token
     And request validDashboardRequest
     When method put

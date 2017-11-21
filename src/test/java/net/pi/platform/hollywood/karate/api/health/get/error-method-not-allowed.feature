@@ -1,4 +1,5 @@
 @api @health @error-method-not-allowed
+@ignore
 Feature: Error Method Not Allowed
   In order to disable endpoints method not allowed
   As a Security Tester

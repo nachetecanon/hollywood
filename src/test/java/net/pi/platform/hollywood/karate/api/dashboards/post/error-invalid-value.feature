@@ -61,7 +61,7 @@ Feature: Try to create a new dashboard with invalid parameter name
     And match response ==
     """
     {
-      "errorMessage": "You cannot save one dashboard with id",
+      "errorMessage": "You cannot create a dashboard with id",
       "errorCode": "invalid.input"
     }
     """

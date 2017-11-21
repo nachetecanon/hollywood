@@ -6,14 +6,14 @@ Feature: Try to update a dashboard with an incorrect http method
   Using incorrect http methods
 
   Background:
-    * def result = callonce read('classpath:net/pi/platform/hollywood/karate/api/dashboards/post/create-dashboard.feature')
+    * def result = call read('classpath:net/pi/platform/hollywood/karate/api/dashboards/post/create-dashboard.feature')
 
   Scenario: A user makes a get to the update endpoint
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
     * def validDashboardRequest = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
-    * set validDashboardRequest.id = result.dashboardId
+    * set validDashboardRequest.id = result.response.id
     Given url urlBase
-    And path '/dashboards/' + result.dashboardId
+    And path '/dashboards/' + result.response.id
     And header authorization = 'Bearer ' + auth.token
     And request validDashboardRequest
     When method get
@@ -24,9 +24,9 @@ Feature: Try to update a dashboard with an incorrect http method
   Scenario: A user makes a post to the update endpoint
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
     * def validDashboardRequest = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
-    * set validDashboardRequest.id = result.dashboardId
+    * set validDashboardRequest.id = result.response.id
     Given url urlBase
-    And path '/dashboards/' + result.dashboardId
+    And path '/dashboards/' + result.response.id
     And header authorization = 'Bearer ' + auth.token
     And request validDashboardRequest
     When method post
@@ -37,9 +37,9 @@ Feature: Try to update a dashboard with an incorrect http method
   Scenario: A user makes a patch to the update endpoint
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
     * def validDashboardRequest = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
-    * set validDashboardRequest.id = result.dashboardId
+    * set validDashboardRequest.id = result.response.id
     Given url urlBase
-    And path '/dashboards/' + result.dashboardId
+    And path '/dashboards/' + result.response.id
     And header authorization = 'Bearer ' + auth.token
     And request validDashboardRequest
     When method patch
@@ -50,9 +50,9 @@ Feature: Try to update a dashboard with an incorrect http method
   Scenario: A user makes a delete to the update endpoint
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
     * def validDashboardRequest = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
-    * set validDashboardRequest.id = result.dashboardId
+    * set validDashboardRequest.id = result.response.id
     Given url urlBase
-    And path '/dashboards/' + result.dashboardId
+    And path '/dashboards/' + result.response.id
     And header authorization = 'Bearer ' + auth.token
     And request validDashboardRequest
     When method delete

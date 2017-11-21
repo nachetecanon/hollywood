@@ -10,9 +10,9 @@ Feature: Try to update a dashboard with invalid mandatory parameters
   Scenario: Update a dashboard with too short parameter dashboard name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
     * def validDashboardRequest = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
-    * set validDashboardRequest.id = result.dashboardId
+    * set validDashboardRequest.id = result.response.id
     Given url urlBase
-    And path '/dashboards/' + result.dashboardId
+    And path '/dashboards/' + result.response.id
     And header authorization = 'Bearer ' + auth.token
     And set validDashboardRequest.name = "123"
     And request validDashboardRequest
@@ -24,11 +24,11 @@ Feature: Try to update a dashboard with invalid mandatory parameters
   Scenario: Update a dashboard with too long parameter dashboard name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
     * def validDashboardRequest = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
-    * set validDashboardRequest.id = result.dashboardId
+    * set validDashboardRequest.id = result.response.id
     Given url urlBase
-    And path '/dashboards/' + result.dashboardId
+    And path '/dashboards/' + result.response.id
     And header authorization = 'Bearer ' + auth.token
-    And set validDashboardRequest.widgets[0].name = "1234567890123456789012345678901234567890123456789012345678901"
+    And set validDashboardRequest.widgets[0].name = "RLTuZPgvwoMRNn6epxwK6Qkd5MpEkrSHz4p31vAifYuFQwveq8eeDJsiS4OFcF7rk"
     And request validDashboardRequest
     When method put
     Then status 400
@@ -38,9 +38,9 @@ Feature: Try to update a dashboard with invalid mandatory parameters
   Scenario: Update a dashboard with too short parameter dashboard widget name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
     * def validDashboardRequest = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
-    * set validDashboardRequest.id = result.dashboardId
+    * set validDashboardRequest.id = result.response.id
     Given url urlBase
-    And path '/dashboards/' + result.dashboardId
+    And path '/dashboards/' + result.response.id
     And header authorization = 'Bearer ' + auth.token
     And set validDashboardRequest.widgets[0].name = "123"
     And request validDashboardRequest
@@ -52,9 +52,9 @@ Feature: Try to update a dashboard with invalid mandatory parameters
   Scenario: Update a dashboard with too long parameter dashboard widget name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
     * def validDashboardRequest = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
-    * set validDashboardRequest.id = result.dashboardId
+    * set validDashboardRequest.id = result.response.id
     Given url urlBase
-    And path '/dashboards/' + result.dashboardId
+    And path '/dashboards/' + result.response.id
     And header authorization = 'Bearer ' + auth.token
     And set validDashboardRequest.widgets[0].name = "1234567890123456789012345678901234567890123456789012345678901"
     And request validDashboardRequest
@@ -67,9 +67,9 @@ Feature: Try to update a dashboard with invalid mandatory parameters
   Scenario: Update a dashboard with invalid null parameter dashboard name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
     * def validDashboardRequest = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
-    * set validDashboardRequest.id = result.dashboardId
+    * set validDashboardRequest.id = result.response.id
     Given url urlBase
-    And path '/dashboards/' + result.dashboardId
+    And path '/dashboards/' + result.response.id
     And header authorization = 'Bearer ' + auth.token
     And set validDashboardRequest.name = null
     And request validDashboardRequest
@@ -82,9 +82,9 @@ Feature: Try to update a dashboard with invalid mandatory parameters
   Scenario: Update a dashboard with invalid null mandatory parameter dashboard widget name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
     * def validDashboardRequest = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
-    * set validDashboardRequest.id = result.dashboardId
+    * set validDashboardRequest.id = result.response.id
     Given url urlBase
-    And path '/dashboards/' + result.dashboardId
+    And path '/dashboards/' + result.response.id
     And header authorization = 'Bearer ' + auth.token
     And set validDashboardRequest.widgets[0].name = null
     And request validDashboardRequest

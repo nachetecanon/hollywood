@@ -22,7 +22,7 @@ Feature: Try to create a new dashboard with missing mandatory parameters
     }
     """
 
-  Scenario: Create a dashboard without a widget without name
+  Scenario: Create a dashboard with a widget without name
     * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
     * def message = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
     Given url urlBase
