@@ -14,7 +14,7 @@ node('master') {
 
     job.mvnCleanVerify(false,'target/surefire-reports/TEST-*.xml','','target/cucumber','continuous-int')
 
-    job.codeQuality()
+    job.sonarQubeAnalysis(true)
 
     job.dockerBuild()
 
