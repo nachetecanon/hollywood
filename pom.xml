@@ -21,10 +21,12 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <kotlin.version>1.1.4-3</kotlin.version>
+        <kotlin.version>1.2.41</kotlin.version>
         <java.version>1.8</java.version>
         <keycloak.version>2.5.4.Final</keycloak.version>
         <karate.version>0.5.0</karate.version>
+        <api.error.response.version>0.1.14</api.error.response.version>
+        <authx-client-adapter.version>0.24.2</authx-client-adapter.version>
     </properties>
 
 
@@ -63,11 +65,6 @@
         <!-- Kotlin -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jre8</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
@@ -94,11 +91,31 @@
             <version>2.9.1</version>
         </dependency>
 
-        <!-- Common libraries -->
+        <!-- authx client adapter library -->
+        <dependency>
+            <groupId>net.pi.platform.authx</groupId>
+            <artifactId>authx-client-adapter</artifactId>
+            <version>${authx-client-adapter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.7</version>
+        </dependency>
+
+        <!-- pi predictx platform - api-error-response -->
         <dependency>
             <groupId>net.pi.platform.common.apierror</groupId>
             <artifactId>spring-api-error-handler</artifactId>
-            <version>0.1.8</version>
+            <version>${api.error.response.version}</version>
+        </dependency>
+
+        <!-- using authx-service contract -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
+            <version>1.2.4.RELEASE</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- Testing -->
@@ -176,16 +193,10 @@
     <build>
         <resources>
             <resource>
-                <directory>sql</directory>
-            </resource>
-            <resource>
                 <directory>src/main/resources</directory>
             </resource>
         </resources>
         <testResources>
-            <testResource>
-                <directory>sql</directory>
-            </testResource>
             <testResource>
                 <directory>src/test/resources</directory>
             </testResource>
@@ -261,7 +272,7 @@
                 <configuration>
                     <systemProperties>
                         <property>
-                            <name>spring.cloud.config.enabled</name>
+                            <name>spring.cloud.config.securityEnabled</name>
                             <value>false</value>
                         </property>
                     </systemProperties>
@@ -327,7 +338,7 @@
                 <configuration>
                     <systemProperties>
                         <property>
-                            <name>spring.cloud.config.enabled</name>
+                            <name>spring.cloud.config.securityEnabled</name>
                             <value>false</value>
                         </property>
                     </systemProperties>
