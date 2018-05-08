@@ -1,3 +1,12 @@
+#### [0.8.2](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.8.2) (08-05-2018) [#21](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/21/overview) [[AUTHX-238](https://jira.predictx.com/browse/AUTHX-238)] hollywood-service meets authx-backend-client-library
+
+* experimental integration between hollywood-service and authx
+* authorize service access using authx (through authx-backend-client-library)
+* full integration with authx-backend-client-library but use authx-services api services mocked using spring-cloud-contract
+* unit tests
+* integration tests
+* integration in karate test class
+
 #### [0.8.1](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.8.1) (21-11-2017) [#20](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/20/overview) [[ZRKCRI-365](https://jira.pibenchmark.com/browse/ZRKCRI-365)] add link paramater
 
 Add link paramater to the dashboard entity.
