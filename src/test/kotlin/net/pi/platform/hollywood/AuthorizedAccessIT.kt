@@ -19,6 +19,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.RequestEntity
 import org.springframework.http.client.ClientHttpRequestInterceptor
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
@@ -35,6 +36,7 @@ import javax.servlet.http.HttpServletResponse
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("authx-integration-test")
 @AutoConfigureStubRunner(ids = arrayOf("net.pi.platform.authx:authx-service:+:stubs:8383"), workOffline = true)
+@DirtiesContext
 class AuthorizedAccessIT {
 
     companion object {
