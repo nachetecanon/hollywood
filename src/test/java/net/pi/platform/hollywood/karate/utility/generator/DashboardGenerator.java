@@ -93,10 +93,14 @@ public class DashboardGenerator {
         map.put("name", "qa_" + faker.number().digits(10));
         map.put("bookmarked", faker.bool().bool());
         map.put("hidden", faker.bool().bool());
+        map.put("createdDate","");
+        map.put("lastModifiedDate","");
         map.put("image", faker.food().ingredient());
         map.put("link", getLink());
         map.put("position",getPosition());
         map.put("widgets", getWidgets());
+
+
         return map;
 
     }

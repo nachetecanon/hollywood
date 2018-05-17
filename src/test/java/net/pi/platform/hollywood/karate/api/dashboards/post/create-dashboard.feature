@@ -13,5 +13,8 @@ Feature: Create a new dashboard
     And request validDashboardAllParametersRequest
     When method post
     Then status 200
+    And print response
     And set validDashboardAllParametersRequest.id = response.id
+    And set validDashboardAllParametersRequest.createdDate = response.createdDate
+    And set validDashboardAllParametersRequest.lastModifiedDate = response.lastModifiedDate
     And match response == validDashboardAllParametersRequest

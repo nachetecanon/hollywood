@@ -23,4 +23,6 @@ Feature: Create a new dashboard with only mandatory fields
     * set validDashboard.bookmarked = "#ignore"
     * set validDashboard.image = "#ignore"
     * set validDashboard.link = "#ignore"
+    * set validDashboard.createdDate = "#ignore"
+    * set validDashboard.lastModifiedDate = "#ignore"
     And match response == validDashboard
