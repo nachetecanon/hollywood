@@ -1,10 +1,9 @@
 package net.pi.platform.hollywood
 
-import org.junit.Assert.assertEquals
 import net.pi.platform.hollywood.model.Dashboard
 import net.pi.platform.hollywood.repository.DashboardRepository
+import org.junit.Assert.assertEquals
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -59,7 +58,6 @@ class ListAllDashboardsIT {
     }
 
     @Test
-    @Ignore
     fun `when save dashboard return dashboard`() {
 
         val endpoint = URI.create(localhost_uri + port + "/api/dashboards")
