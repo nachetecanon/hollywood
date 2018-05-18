@@ -1,3 +1,8 @@
+#### [0.8.3](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.8.3) (18-05-2018) [#23](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/23/overview) [[AUTHX-240](https://jira.predictx.com/browse/AUTHX-240)] move access authorization logic out of hollywood-service api
+
+* move out of hollywood-service codebase all authorization code
+* refactor some tests
+
 #### [0.8.2](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.8.2) (08-05-2018) [#21](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/21/overview) [[AUTHX-238](https://jira.predictx.com/browse/AUTHX-238)] hollywood-service meets authx-backend-client-library
 
 * experimental integration between hollywood-service and authx
