@@ -1,3 +1,7 @@
+### [0.9.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.9.0) (18-05-2018) [#22](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/22/overview) [[PIPHW-154](https://jira.predictx.com/browse/PIPHW-154)] implement auditing
+
+Implement auditing of date of creation on dashboard and also the lastModifiedDate
+
 #### [0.8.3](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.8.3) (18-05-2018) [#23](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/23/overview) [[AUTHX-240](https://jira.predictx.com/browse/AUTHX-240)] move access authorization logic out of hollywood-service api
 
 * move out of hollywood-service codebase all authorization code
