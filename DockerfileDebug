@@ -8,6 +8,6 @@ ENV JVM_OPTIONS -Xmx256m
 
 # To reduce Tomcat startup time we added a system property pointing to "/dev/urandom" (see Spring Boot docs)
 ENTRYPOINT ["java", \
-            "-Xdebug", "-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n", \
+            "-Xdebug", "-agentlib:jdwp=transport=dt_socket,server=y,address=8001,suspend=n", \
             "-Djava.security.egd=file:/dev/./urandom", \
             "-jar","/app.jar"]
