@@ -1,3 +1,8 @@
+#### [0.9.1](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.9.1) (21-05-2018) [#24](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/24/overview) [[AUTHX-240](https://jira.predictx.com/browse/AUTHX-240)] fix issues with authx-client-library
+
+* bad authorization header in authx-service requests
+* fix docker file debug (adjust debug ports)
+
 ### [0.9.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.9.0) (18-05-2018) [#22](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/22/overview) [[PIPHW-154](https://jira.predictx.com/browse/PIPHW-154)] implement auditing
 
 Implement auditing of date of creation on dashboard and also the lastModifiedDate
