@@ -64,7 +64,7 @@ class SaveDashboardIT {
         val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
         val resultDashboard = dashboardResponseEntity.getBody()
-        assertEquals(dashboardRepository.findOne(resultDashboard.id), resultDashboard)
+        assertEquals(dashboardRepository.findOneById(resultDashboard?.id!!), resultDashboard)
     }
 
     @Test
@@ -73,7 +73,7 @@ class SaveDashboardIT {
         val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
         val resultDashboard = dashboardResponseEntity.getBody()
-        assertEquals(dashboardRepository.findOne(resultDashboard.id), resultDashboard)
+        assertEquals(dashboardRepository.findOneById(resultDashboard?.id!!), resultDashboard)
     }
 
     @Test
@@ -82,7 +82,7 @@ class SaveDashboardIT {
         val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
         val resultDashboard = dashboardResponseEntity.getBody()
-        assertEquals(dashboardRepository.findOne(resultDashboard.id), resultDashboard)
+        assertEquals(dashboardRepository.findOneById(resultDashboard?.id!!), resultDashboard)
     }
 
     @Test
@@ -91,8 +91,8 @@ class SaveDashboardIT {
         val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Map::class.java)
         val requestBody = dashboardResponseEntity.body
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.BAD_REQUEST)
-        assertEquals(requestBody.get("errorMessage"), "You cannot create a dashboard with id")
-        assertEquals(requestBody.get("errorCode"), "invalid.input")
+        assertEquals(requestBody?.get("errorMessage"), "You cannot create a dashboard with id")
+        assertEquals(requestBody?.get("errorCode"), "invalid.input")
 
     }
 
@@ -125,7 +125,7 @@ class SaveDashboardIT {
         val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
 
         val entity = HttpEntity(DataSamplesObjects.getDashboard(), HttpHeaders())
-        val response = restTemplate.exchange(getRequestPathFor("dashboards", dashboardResponseEntity.body.id), HttpMethod.PUT, entity, Void::class.java)
+        val response = restTemplate.exchange(getRequestPathFor("dashboards", dashboardResponseEntity.body?.id), HttpMethod.PUT, entity, Void::class.java)
         assertEquals(response.getStatusCode(), HttpStatus.NO_CONTENT)
     }
 
@@ -135,8 +135,8 @@ class SaveDashboardIT {
         val response = restTemplate.exchange(getRequestPathFor("dashboards", "not_found"), HttpMethod.PUT, entity, Map::class.java)
         assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND)
         val result = response.body
-        assertEquals(result.get("errorMessage"), "Unable to update dashboard: Dashboard with id[not_found] not found")
-        assertEquals(result.get("errorCode"), "uri.not.found")
+        assertEquals(result?.get("errorMessage"), "Unable to update dashboard: Dashboard with id[not_found] not found")
+        assertEquals(result?.get("errorCode"), "uri.not.found")
     }
 
     private fun getRequestPathFor(vararg path: String?): String {

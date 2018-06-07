@@ -61,7 +61,7 @@ class AuthorizedAccessIT {
     @Before
     fun cleanUp() {
         dashboardRepository.deleteAll()
-        dashboardRepository.save(listOf(DataSamplesObjects.getDashboard()))
+        dashboardRepository.save(DataSamplesObjects.getDashboard())
     }
 
     @Test

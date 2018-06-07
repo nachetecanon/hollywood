@@ -21,11 +21,8 @@ class DashboardService(@Autowired val dashboardRepository: DashboardRepository) 
         return saveDashboard(dashboard)
     }
 
-    fun updateDashboard(id: String?, dashboard: Dashboard) {
-        if (id.isNullOrEmpty()) {
-            throw WrongInputValueException("You cannot update a dashboard without id")
-        }
-        if (dashboardRepository.findOne(id) == null) {
+    fun updateDashboard(id: String, dashboard: Dashboard) {
+        if (!dashboardRepository.findOneById(id).isPresent) {
             throw EntityNotFoundException("Unable to update dashboard: Dashboard with id[" + id + "] not found")
         }
         saveDashboard(dashboard.copy(id = id))
