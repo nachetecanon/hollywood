@@ -10,4 +10,4 @@ Feature: Get one dashboard authorized
     And path '/dashboards/28'
     And header authorization = 'Bearer ' + auth.token
     When method get
-    Then status 403
+    Then status 405

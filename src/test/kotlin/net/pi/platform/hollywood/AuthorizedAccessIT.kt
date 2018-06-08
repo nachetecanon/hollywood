@@ -86,7 +86,7 @@ class AuthorizedAccessIT {
         // When
         val response = restTemplate.exchange(request, typeRef<Void>())
         // Then
-        assertEquals(HttpStatus.FORBIDDEN, response.statusCode)
+        assertEquals(HttpStatus.METHOD_NOT_ALLOWED, response.statusCode)
 
     }
 

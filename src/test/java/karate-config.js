@@ -14,21 +14,21 @@ function() {
   };
   if (env == 'dev') {
     config.username = 'hollywood.test';
-    config.keycloakUrl = 'https://login-test.pibenchmark.com/auth';
+    config.keycloakUrl = 'https://login-test-2.pibenchmark.com/auth';
     config.urlBase = 'https://hollywood-dev.pibenchmark.com/api';
     config.urlBase1 = 'http://localhost:8076/api';
     config.username = 'hollywood.be';
     config.password = 'test';
 
   } else if (env == 'qa') {
-    config.keycloakUrl = 'https://login-test.pibenchmark.com/auth';
+    config.keycloakUrl = 'https://login-test-2.pibenchmark.com/auth';
     config.urlBase = 'https://hollywood-qa.pibenchmark.com/api';
     config.urlBase1 = 'http://localhost:8076/api';
     config.username = 'hollywood.be';
     config.password = 'test';
   }
     else if (env == 'local') {
-    config.keycloakUrl = 'https://login-test.pibenchmark.com/auth';
+    config.keycloakUrl = 'https://login-test-2.pibenchmark.com/auth';
     config.urlBase = 'http://localhost:8075/api';
     config.urlBase1 = 'http://localhost:8076/api';
     config.username = 'hollywood.be';

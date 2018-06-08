@@ -5,5 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository
 import java.util.Optional
 
 interface DashboardRepository : MongoRepository<Dashboard, String> {
-    fun findOneById(id: String): Optional<Dashboard>
+    fun findOneById(id: String): Dashboard?
 }

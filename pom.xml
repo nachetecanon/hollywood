@@ -23,10 +23,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <kotlin.version>1.2.41</kotlin.version>
         <java.version>1.8</java.version>
-        <keycloak.version>2.5.4.Final</keycloak.version>
         <karate.version>0.5.0</karate.version>
         <api.error.response.version>0.1.14</api.error.response.version>
-        <authx-client-adapter.version>0.1.2</authx-client-adapter.version>
+        <jackson.version>2.9.1</jackson.version>
         <keycloak.version>4.0.0.Beta3</keycloak.version>
     </properties>
 
@@ -74,37 +73,25 @@
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
-            <version>2.9.1</version>
+            <version>${jackson.version}</version>
         </dependency>
 
         <!-- Jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.1</version>
+            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.9.1</version>
+            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>2.9.1</version>
+            <version>${jackson.version}</version>
         </dependency>
-
-        <!-- authx client adapter library -->
-        <!--<dependency>-->
-        <!--<groupId>net.pi.platform.authx</groupId>-->
-        <!--<artifactId>authx-client-adapter</artifactId>-->
-        <!--<version>${authx-client-adapter.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.apache.commons</groupId>-->
-        <!--<artifactId>commons-lang3</artifactId>-->
-        <!--<version>3.7</version>-->
-        <!--</dependency>-->
 
         <!-- pi predictx platform - api-error-response -->
         <dependency>

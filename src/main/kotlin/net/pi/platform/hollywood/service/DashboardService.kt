@@ -22,11 +22,12 @@ class DashboardService(@Autowired val dashboardRepository: DashboardRepository) 
     }
 
     fun updateDashboard(id: String, dashboard: Dashboard) {
-        if (!dashboardRepository.findOneById(id).isPresent) {
+        dashboardRepository.findOneById(id) ?:
             throw EntityNotFoundException("Unable to update dashboard: Dashboard with id[" + id + "] not found")
-        }
         saveDashboard(dashboard.copy(id = id))
     }
 
     fun listAll(): List<Dashboard> = dashboardRepository.findAll()
+
+    fun listByIds(ids: List<String>): List<Dashboard> = dashboardRepository.findAllById(ids).filterNotNull()
 }

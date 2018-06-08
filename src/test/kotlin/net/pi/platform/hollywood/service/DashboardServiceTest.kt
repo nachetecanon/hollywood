@@ -54,7 +54,7 @@ class DashboardServiceImplTest {
         val dashboard = DataSamplesObjects.getDashboard()
         val dashboardToUpdate = dashboard.copy(id = "some_id")
         given(dashboardRepository.save(dashboardToUpdate)).willReturn(dashboardToUpdate)
-        given(dashboardRepository.findOneById(ArgumentMatchers.anyString())).willReturn(Optional.of(dashboard))
+        given(dashboardRepository.findOneById(ArgumentMatchers.anyString())).willReturn(dashboard)
         dashboardService.updateDashboard("some_id", dashboard)
         verify<DashboardRepository>(this.dashboardRepository, times(1)).save(dashboardToUpdate)
     }
@@ -62,7 +62,7 @@ class DashboardServiceImplTest {
     @Test
     fun `test update dashboard which not exists`() {
         val dashboard = DataSamplesObjects.getDashboard()
-        given(dashboardRepository.findOneById(ArgumentMatchers.anyString())).willReturn(Optional.empty())
+        given(dashboardRepository.findOneById(ArgumentMatchers.anyString())).willReturn(null)
         try {
             dashboardService.updateDashboard("some_id", dashboard)
         } catch (e: EntityNotFoundException) {
