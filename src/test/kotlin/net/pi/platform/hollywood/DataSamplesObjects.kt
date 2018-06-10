@@ -9,9 +9,13 @@ class DataSamplesObjects {
 
     companion object Dashboards {
 
-        fun getDashboard(): Dashboard {
+        fun getDashboardWithoutId(): Dashboard {
+            return getDashboard(null);
+        }
+
+        fun getDashboard(id: String?): Dashboard {
             return Dashboard(
-                    id = null,
+                    id = id,
                     name = "longerName",
                     hidden = false,
                     widgets = listOf(Widget(id = null, name = "name-widget", bookmarked = true, visualization = null,
@@ -29,7 +33,7 @@ class DataSamplesObjects {
 
 
         fun getDashboardWithVisualization(): Dashboard {
-            return getDashboard().copy(widgets = listOf(
+            return getDashboardWithoutId().copy(widgets = listOf(
                     Widget(id = null, name = "name-widget"
                             , bookmarked = true,
                             visualization = hashMapOf("someParameter" to 1,

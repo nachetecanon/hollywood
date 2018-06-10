@@ -19,7 +19,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun `test create dashboard`() {
-        val dashboard = DataSamplesObjects.getDashboard()
+        val dashboard = DataSamplesObjects.getDashboardWithoutId()
         given(dashboardRepository.save(dashboard)).willReturn(dashboard)
         val dashboardReturned = dashboardService.createDashboard(dashboard)
         assertEquals(dashboardReturned, dashboard)
@@ -29,7 +29,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun `test create dashboard with id`() {
-        val dashboard = DataSamplesObjects.getDashboard().copy(id = "blablabla")
+        val dashboard = DataSamplesObjects.getDashboard("blablabla")
         try {
             dashboardService.createDashboard(dashboard)
         } catch (e: WrongInputValueException) {
@@ -40,7 +40,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun `test list all dashboards`() {
-        val dashboard = DataSamplesObjects.getDashboard()
+        val dashboard = DataSamplesObjects.getDashboardWithoutId()
         given(dashboardRepository.findAll()).willReturn(listOf(dashboard))
         val dashboards = dashboardService.listAll()
         assertEquals(dashboards.size, 1)
@@ -51,7 +51,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun `test update dashboard`() {
-        val dashboard = DataSamplesObjects.getDashboard()
+        val dashboard = DataSamplesObjects.getDashboardWithoutId()
         val dashboardToUpdate = dashboard.copy(id = "some_id")
         given(dashboardRepository.save(dashboardToUpdate)).willReturn(dashboardToUpdate)
         given(dashboardRepository.findOneById(ArgumentMatchers.anyString())).willReturn(dashboard)
@@ -61,7 +61,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun `test update dashboard which not exists`() {
-        val dashboard = DataSamplesObjects.getDashboard()
+        val dashboard = DataSamplesObjects.getDashboardWithoutId()
         given(dashboardRepository.findOneById(ArgumentMatchers.anyString())).willReturn(null)
         try {
             dashboardService.updateDashboard("some_id", dashboard)

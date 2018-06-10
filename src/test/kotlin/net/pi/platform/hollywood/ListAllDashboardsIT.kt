@@ -55,7 +55,7 @@ class ListAllDashboardsIT {
     @Before
     fun cleanUp() {
         dashboardRepository.deleteAll()
-        dashboardRepository.save(DataSamplesObjects.getDashboard())
+        dashboardRepository.save(DataSamplesObjects.getDashboardWithoutId())
     }
 
     @Test

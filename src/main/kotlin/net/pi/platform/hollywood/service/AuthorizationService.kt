@@ -1,5 +1,6 @@
 package net.pi.platform.hollywood.service
 
+import net.pi.platform.common.api.exception.ForbiddenException
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpEntity
@@ -7,6 +8,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpHeaders.AUTHORIZATION
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType.APPLICATION_JSON_UTF8
 import org.springframework.stereotype.Service
 import org.springframework.web.client.DefaultResponseErrorHandler
 import org.springframework.web.client.RestTemplate
@@ -39,23 +41,50 @@ class AuthorizationService(@Value("\${authx.url:NA}") val authxUrl: String,
     }
 
 
-    fun fetchAuthorizedResources(token: String, application: String, entity: String): List<AuthorizedResource> {
+    fun fetchAuthorizedResources(token: String, application: String, entity: String): List<AuthorizedEntity> {
         val headers = HttpHeaders()
         headers.put(AUTHORIZATION, arrayListOf("Bearer ${token}"))
+        //TODO added to match authX contract (remove from
+        headers.contentType = APPLICATION_JSON_UTF8
+        val path = "/${application}/${entity}/"
         val url: String = UriComponentsBuilder.fromHttpUrl(authxUrl)
                 .pathSegment("applications", application, "entities", entity)
                 .build().toString()
-        val response = restTemplate.exchange(url, HttpMethod.GET, HttpEntity(null, headers), Object::class.java)
+        val response = restTemplate.exchange(url, HttpMethod.GET, HttpEntity(null, headers), Any::class.java)
         when {
-            response.statusCode.is2xxSuccessful -> return response.body as List<AuthorizedResource>
+            response.statusCode.is2xxSuccessful -> {
+                //Need to convert explicitly result when response is OK
+                val result = response.body as List<Map<String, Any>>
+                return result.map { convertAuthorizedEntity(path, it) }
+            }
+            response.statusCode.is4xxClientError -> {
+                val message = when {
+                    response.headers.containsKey("WWW-Authenticate") -> response.headers["WWW-Authenticate"]
+                    else -> {
+                        val payload = response.body as Map<String, Any>
+                        if (payload.containsKey("errorMessage")) payload["errorMessage"].toString() else response.body.toString()
+                    }
+                }
+                logger.warn("UnauthorizedException of ${application} ${entity} for user ${token}")
+                throw ForbiddenException("${message}")
+            }
             else -> {
-                //In case of 4XX status useful error message could reside in WWW-Authenticate header
-                val message = response.headers["WWW-Authenticate"] ?: response.body
+                val message = response.body
                 throw RuntimeException("Cannot access authorization module ${response.statusCode} from $url : $message")
             }
         }
     }
 
+    fun convertAuthorizedEntity(path: String, payload: Map<String, Any>): AuthorizedEntity {
+        val resource = payload["resource"] as String
+        val id = if (resource.startsWith(path)) {
+            resource.substring(path.length)
+        } else {
+            throw RuntimeException("Cannot extract entity Id from ${resource}")
+        }
+        val operations = payload["allowedOperations"] as List<String>
+        return AuthorizedEntity(id, operations)
+    }
 }
 
-data class AuthorizedResource(val resource: String, val operations: List<String>)
+data class AuthorizedEntity(val id: String, val operations: List<String>)

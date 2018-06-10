@@ -16,6 +16,8 @@ import javax.validation.Valid
 @RequestMapping("dashboards")
 class DashboardController(val dashboardService: DashboardService, val authorizationService: AuthorizationService) {
 
+    private val logger = LoggerFactory.getLogger(DashboardController::class.java)
+
     @PostMapping
     fun saveDashboard(@RequestBody @Valid dashboard: Dashboard): Dashboard = dashboardService.createDashboard(dashboard)
 
@@ -26,17 +28,23 @@ class DashboardController(val dashboardService: DashboardService, val authorizat
 
     @GetMapping
     fun listAll(servletRequest: ServletRequest): List<Dashboard> {
-        if (authorizationService.authEnabled) {
-            return onlyAuthorizedDasboards(servletRequest)
+        return if (authorizationService.authEnabled) {
+            onlyAuthorizedDasboards(servletRequest)
         } else {
-            return dashboardService.listAll()
+            dashboardService.listAll()
         }
     }
 
     private fun onlyAuthorizedDasboards(request: ServletRequest): List<Dashboard> {
         val token = extractToken(request)
-        val ids = authorizationService.fetchAuthorizedResources(token, "hollywood", "dashboard").map { it.resource }
-        return dashboardService.listByIds(ids)
+        val resources = authorizationService.fetchAuthorizedResources(token, "hollywood", "dashboards")
+        val ids = resources.map { it.id }
+        val dashboards = dashboardService.listByIds(ids)
+        if (ids.size > dashboards.size) {
+            val notFoundDasboards = ids.toHashSet().minus(dashboards.map { it.id })
+            logger.warn("Not Found dashboards ${notFoundDasboards} for ${token}")
+        }
+        return dashboards
     }
 
     private fun extractToken(request: ServletRequest): String {

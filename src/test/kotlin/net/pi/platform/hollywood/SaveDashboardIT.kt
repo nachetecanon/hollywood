@@ -60,7 +60,7 @@ class SaveDashboardIT {
 
     @Test
     fun `test create when save dashboard then return dashboard`() {
-        val dashboard = DataSamplesObjects.getDashboard()
+        val dashboard = DataSamplesObjects.getDashboardWithoutId()
         val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
         val resultDashboard = dashboardResponseEntity.getBody()
@@ -87,7 +87,7 @@ class SaveDashboardIT {
 
     @Test
     fun `test create when save dashboard and with id then throws WrongInputValue exception`() {
-        val dashboard = DataSamplesObjects.getDashboard().copy(id = "blabla")
+        val dashboard = DataSamplesObjects.getDashboard("blabla")
         val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Map::class.java)
         val requestBody = dashboardResponseEntity.body
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.BAD_REQUEST)
@@ -121,17 +121,17 @@ class SaveDashboardIT {
 
     @Test
     fun `test update when exists dashboard then update dashboard and return it`() {
-        val dashboard = DataSamplesObjects.getDashboard()
+        val dashboard = DataSamplesObjects.getDashboardWithoutId()
         val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Dashboard::class.java)
 
-        val entity = HttpEntity(DataSamplesObjects.getDashboard(), HttpHeaders())
+        val entity = HttpEntity(DataSamplesObjects.getDashboardWithoutId(), HttpHeaders())
         val response = restTemplate.exchange(getRequestPathFor("dashboards", dashboardResponseEntity.body?.id), HttpMethod.PUT, entity, Void::class.java)
         assertEquals(response.getStatusCode(), HttpStatus.NO_CONTENT)
     }
 
     @Test
     fun `test update when not exists dashboard then throws EntityNotFound exception`() {
-        val entity = HttpEntity(DataSamplesObjects.getDashboard(), HttpHeaders())
+        val entity = HttpEntity(DataSamplesObjects.getDashboardWithoutId(), HttpHeaders())
         val response = restTemplate.exchange(getRequestPathFor("dashboards", "not_found"), HttpMethod.PUT, entity, Map::class.java)
         assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND)
         val result = response.body
