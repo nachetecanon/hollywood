@@ -42,7 +42,7 @@ class DashboardController(val dashboardService: DashboardService, val authorizat
         val dashboards = dashboardService.listByIds(ids)
         if (ids.size > dashboards.size) {
             val notFoundDasboards = ids.toHashSet().minus(dashboards.map { it.id })
-            logger.warn("Not Found dashboards ${notFoundDasboards} for ${token}")
+            logger.warn("Dashboards ${notFoundDasboards} not found but present in authX for ${token}")
         }
         return dashboards
     }
