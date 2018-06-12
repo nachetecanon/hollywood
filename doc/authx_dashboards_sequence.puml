@@ -1,0 +1,19 @@
+@startuml
+title Get authorized dashboards
+
+Client -> DashboardController: GET /dashboards
+box "Hollywood Service" #LightBlue
+	participant DashboardController
+	participant AuthorizationService
+	participant DashboardService
+end box
+activate DashboardController
+DashboardController --> AuthorizationService: get authrozied dashboards IDs
+activate AuthorizationService
+AuthorizationService -> AuthXService : GET /auth/applications/hollywood/entities/dashboards
+deactivate AuthorizationService
+DashboardController -> DashboardService : listByIds
+DashboardService -> MongoDB : fetch dashboard documents
+DashboardController -> Client
+deactivate DashboardController
+@enduml
