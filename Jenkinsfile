@@ -2,12 +2,9 @@
 
 @Library('predictx-ci@develop') _
 
-net.predictx.flow.Flow.setProperties(this)
+def job = new  main.groovy.net.predictx.flow.MavenFlow(this)
 
-node('master') {
-
-  def job = new net.predictx.flow.MavenFlow(this)
-
+job.exec( {
   job.checkoutCode()
 
   if (!job.delegateMerge()) {
@@ -19,6 +16,5 @@ node('master') {
     job.dockerBuild()
 
     job.dockerPush()
-
   }
-}
+})

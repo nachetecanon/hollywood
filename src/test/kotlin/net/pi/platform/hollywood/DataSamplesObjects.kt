@@ -16,6 +16,7 @@ class DataSamplesObjects {
                     hidden = false,
                     widgets = listOf(Widget(id = null, name = "name-widget", bookmarked = true, visualization = null,
                             app = null,
+                            type = null,
                             position = Position(x = 0, y = 1, rows = 2, cols = 2))),
                     position = Position(x = 0, y = 1, rows = 2, cols = 2),
                     link = Link(url = "google.es", type = "URL"),
@@ -34,6 +35,7 @@ class DataSamplesObjects {
                             visualization = hashMapOf("someParameter" to 1,
                                     "otherValue" to Position(x = 0, y = 1, rows = 2, cols = 2)),
                             app = hashMapOf("parameter" to 3),
+                            type = null,
                             position = Position(x = 0, y = 1, rows = 2, cols = 2))),
                     bookmarked = true,
                     hidden = false
