@@ -94,21 +94,3 @@ Feature: Create a new dashboard with empty value parameters
       "errorCode": "invalid.input"
     }
     """
-
-  Scenario: Create a widget with null widget name
-    * def auth = call read('classpath:common/auth/keycloak-login.feature') { realm: '#(realm)', username: '#(username)', password: '#(password)', client_id: "#(client_id)"}
-    * def message = call read('classpath:net/pi/platform/hollywood/karate/utility/funcs/generate-valid-dashboard.js')
-    Given url urlBase
-    And path '/dashboards'
-    And header authorization = 'Bearer ' + auth.token
-    And set message.widgets[0].name = null
-    And request message
-    When method post
-    Then status 400
-    And match response ==
-    """
-    {
-      "errorMessage": "There is some wrong value in some input field",
-      "errorCode": "invalid.input"
-    }
-    """

@@ -37,6 +37,7 @@ public class DashboardGenerator {
         map.put("id", faker.number().digits(5));
         map.put("bookmarked", faker.bool().bool());
         map.put("name", "qa_" + faker.number().digits(5));
+        map.put("type", faker.options().option("card", "microcard"));
 
         Map<String, Object> mapVisualization = new LinkedHashMap<>();
         mapVisualization.put("someParameter",faker.number().numberBetween(0,1));
