@@ -1,3 +1,7 @@
+### [0.10.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.10.0) (06-07-2018) [#28](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/28/overview) [[PIPHW-306](https://jira.predictx.com/browse/PIPHW-306)] add a type for widget and put null the name
+
++ Change jenckinsfile with the new configuration
+
 #### [0.9.2](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.9.2) (07-06-2018) [#26](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/26/overview) [*no issue*] Added SonarQube and detekt config default file
 
 #### [0.9.1](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.9.1) (21-05-2018) [#24](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/24/overview) [[AUTHX-240](https://jira.predictx.com/browse/AUTHX-240)] fix issues with authx-client-library
