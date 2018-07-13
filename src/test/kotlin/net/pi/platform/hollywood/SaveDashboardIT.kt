@@ -98,20 +98,20 @@ class SaveDashboardIT {
 
     @Test
     fun `test create when save dashboard and with widget name lower 5 then throws WrongInputValue exception`() {
-        val widget = DataSamplesObjects.getDashboard().widgets[0].copy(name = "aaa")
-        val dashboard = DataSamplesObjects.getDashboard().copy(id = null,widgets = arrayListOf(widget))
+        val widget = DataSamplesObjects.getDashboardWithoutId().widgets[0].copy(name = "aaa")
+        val dashboard = DataSamplesObjects.getDashboardWithoutId().copy(widgets = arrayListOf(widget))
         val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Map::class.java)
         val requestBody = dashboardResponseEntity.body
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.BAD_REQUEST)
-        assertEquals(requestBody.get("errorMessage"), "Constraint validation failure in input message")
-        assertEquals(requestBody.get("errorCode"), "invalid.input")
+        assertEquals(requestBody?.get("errorMessage"), "Constraint validation failure in input message")
+        assertEquals(requestBody?.get("errorCode"), "invalid.input")
 
     }
 
     @Test
     fun `test create when save dashboard and with widget name is null`() {
-        val widget = DataSamplesObjects.getDashboard().widgets[0].copy(name = null)
-        val dashboard = DataSamplesObjects.getDashboard().copy(id = null,widgets = arrayListOf(widget))
+        val widget = DataSamplesObjects.getDashboardWithoutId().widgets[0].copy(name = null)
+        val dashboard = DataSamplesObjects.getDashboardWithoutId().copy(widgets = arrayListOf(widget))
         val dashboardResponseEntity = restTemplate.postForEntity(getRequestPathFor("dashboards"), dashboard, Map::class.java)
         val requestBody = dashboardResponseEntity.body
         assertEquals(dashboardResponseEntity.getStatusCode(), HttpStatus.OK)
