@@ -41,14 +41,14 @@ class AuthorizationService(@Value("\${authx.url:NA}") val authxUrl: String,
     }
 
 
-    fun fetchAuthorizedResources(token: String, application: String, entity: String): List<AuthorizedEntity> {
+    fun fetchAuthorizedResources(token: String, application: String, collection: String): List<AuthorizedEntity> {
         val headers = HttpHeaders()
         headers.put(AUTHORIZATION, arrayListOf("Bearer ${token}"))
-        //TODO added to match authX contract (remove from
+        //added to match authX contract
         headers.contentType = APPLICATION_JSON_UTF8
-        val path = "/${application}/${entity}/"
+        val path = "/${application}/${collection}/"
         val url: String = UriComponentsBuilder.fromHttpUrl(authxUrl)
-                .pathSegment("applications", application, "entities", entity)
+                .pathSegment(application, collection)
                 .build().toString()
         val response = restTemplate.exchange(url, HttpMethod.GET, HttpEntity(null, headers), Any::class.java)
         when {
@@ -65,7 +65,7 @@ class AuthorizationService(@Value("\${authx.url:NA}") val authxUrl: String,
                         if (payload.containsKey("errorMessage")) payload["errorMessage"].toString() else response.body.toString()
                     }
                 }
-                logger.warn("UnauthorizedException of ${application} ${entity} for user ${token}")
+                logger.warn("UnauthorizedException of ${application} ${collection} for user ${token}")
                 throw ForbiddenException("${message}")
             }
             else -> {
@@ -75,15 +75,26 @@ class AuthorizationService(@Value("\${authx.url:NA}") val authxUrl: String,
         }
     }
 
-    fun convertAuthorizedEntity(path: String, payload: Map<String, Any>): AuthorizedEntity {
-        val resource = payload["resource"] as String
+    private fun convertAuthorizedEntity(path: String, payload: Map<String, Any>): AuthorizedEntity {
+        val resource = payload["path"] as String
         val id = if (resource.startsWith(path)) {
             resource.substring(path.length)
         } else {
-            throw RuntimeException("Cannot extract entity Id from ${resource}")
+            throw RuntimeException("Cannot extract resource Id from ${resource}")
         }
-        val operations = payload["allowedOperations"] as List<String>
-        return AuthorizedEntity(id, operations)
+        val groups = payload["groups"]
+        if (groups is List<*>) {
+            val operations = groups.flatMap {
+                if (it !is Map<*, *> || it["permissions"] !is List<*>) {
+                    throw RuntimeException("Mismatch payload ${groups}")
+                } else {
+                    it["permissions"] as List<String>
+                }
+            }
+            return AuthorizedEntity(id, operations)
+        } else {
+            throw RuntimeException("Mismatch payload ${groups}")
+        }
     }
 }
 
