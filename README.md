@@ -7,14 +7,13 @@ Hollywood Service API is Backend API for Hollywood component
 Feel free to check specific details in Hollywood Confluence resources:
 * [Hollywood API Confluence Space](https://confluence.pibenchmark.com/display/PLATHOLLYWOOD/Hollywood+Service+API) 
 
-## Team members
 
-| Name             | Contact                  |
-| -----------------|--------------------------|
-| Jesus Liebana    | jesus.liebana@p-i.net    |
-| Manu Somolinos   | manuel.somolinos@p-i.net |
+## AuthX Integration
 
-## Packaging
+![Sequence diagram](./doc/authx_dashboards_sequence.png)
+
+## Development 
+### Packaging
 
 Use maven:
 
@@ -23,7 +22,7 @@ mvn clean package
 ```
 all the unit tests will be executed and the package won't be built if some of them fail.
 
-## Testing
+### Testing
 
 Make sure you have set up integration resources:
 ```sh
@@ -35,7 +34,7 @@ Launch unit and integration tests:
 mvn clean verify
 ```
 
-## Startup Hollywood Service stack
+### Startup Hollywood Service stack
 
 There are two options, launch plain stack or launch stack with debug configuration:
 

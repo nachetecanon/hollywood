@@ -10,3 +10,7 @@ services:
     - MONGO_DATABASE_1=hollywood-it
     - MONGO_ROLE_1=readWrite
     image: docker-test.pibenchmark.com/pi-mongo:3.2
+  authx:
+    ports:
+      - 1080:1080/tcp
+    image: jamesdbloom/mockserver:mockserver-5.4.1

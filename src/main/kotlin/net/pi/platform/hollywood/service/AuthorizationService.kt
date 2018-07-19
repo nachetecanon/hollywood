@@ -93,7 +93,7 @@ class AuthorizationService(@Value("\${authx.url:NA}") val authxUrl: String,
             }
             return AuthorizedEntity(id, operations)
         } else {
-            throw RuntimeException("Mismatch payload ${groups}")
+            throw RuntimeException("Mismatch payload groups=${groups}")
         }
     }
 }
