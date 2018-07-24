@@ -18,9 +18,15 @@ class DashboardController(val dashboardService: DashboardService, val authorizat
 
     private val logger = LoggerFactory.getLogger(DashboardController::class.java)
 
+    /*
+     * Create new [dashboard]
+     */
     @PostMapping
     fun saveDashboard(@RequestBody @Valid dashboard: Dashboard): Dashboard = dashboardService.createDashboard(dashboard)
 
+    /*
+     * Update a [dashboard]
+    */
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun saveDashboard(@PathVariable("id", required = true) id: String,

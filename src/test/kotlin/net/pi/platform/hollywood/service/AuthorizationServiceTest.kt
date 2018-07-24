@@ -26,7 +26,7 @@ class AuthorizationServiceTest {
         val host = "http://localhost:${rule.getPort()}"
 
         val authorizationService = AuthorizationService(host, true)
-        val getResults = request("/hollywood/dashboards")
+        val getResults = request("/auth/hollywood/dashboards")
         val groupPermission = mapOf("group" to mapOf("path" to "/company/uk"),
                 "permissions" to listOf("read"))
         val dashboard = mapOf("type" to "item", "path" to "/hollywood/dashboards/123",
@@ -50,7 +50,7 @@ class AuthorizationServiceTest {
         val host = "http://localhost:${rule.getPort()}"
 
         val authorizationService = AuthorizationService(host, true)
-        val getResults = request("/hollywood/dashboards")
+        val getResults = request("/auth/hollywood/dashboards")
         val groupPermission = mapOf("group" to mapOf("path" to "/company/uk"),
                 "wrongkey" to listOf("read"))
         val dashboard = mapOf("type" to "item", "path" to "/hollywood/dashboards/123",
@@ -63,13 +63,34 @@ class AuthorizationServiceTest {
         //When
         try {
             authorizationService.fetchAuthorizedResources("werw", "hollywood", "dashboards")
-            fail("should fail as receiving invalid from authX")
+            fail("should fail as receiving invalid payload from authX")
             //Then
         } catch (e: RuntimeException) {
             assertThat(e.message).containsIgnoringCase("Mismatch payload")
         }
+    }
 
+    @Test()
+    fun `should failed if authX path is incorrect`() {
+        //Given
+        val host = "http://localhost:${rule.getPort()}"
 
+        val authorizationService = AuthorizationService(host, true)
+        val getResults = request("/wrong/hollywood/dashboards")
+        val queryResults = response(objectMapper.writeValueAsString(emptyMap<Any, Any>()))
+                .withHeader(Header.header("content-type", "application/json;charset=UTF-8"))
+                .withStatusCode(200)
+        mockServerClient.`when`(getResults).respond(queryResults)
+
+        //When
+        try {
+            authorizationService.fetchAuthorizedResources("werw", "hollywood", "dashboards")
+            fail("should fail as receiving invalid from authX")
+            //Then
+        } catch (e: RuntimeException) {
+            e.printStackTrace()
+            assertThat(e.message).containsIgnoringCase("statusCode=404")
+        }
     }
 
 }

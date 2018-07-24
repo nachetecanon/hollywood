@@ -1,4 +1,4 @@
-# Hollywood Service API
+# Hollywood Service
 
 [![Build Status](https://jenkins.pibenchmark.com/buildStatus/icon?job=HOL/hollywood-service/develop)](https://jenkins.pibenchmark.com/job/HOL/job/hollywood-service/job/develop/)
 
@@ -8,9 +8,29 @@ Feel free to check specific details in Hollywood Confluence resources:
 * [Hollywood API Confluence Space](https://confluence.pibenchmark.com/display/PLATHOLLYWOOD/Hollywood+Service+API) 
 
 
-## AuthX Integration
+## Model
+
+The service has 1 entity the dashboard. [Here the model](./src/main/kotlin/net/pi/platform/hollywood/model/Dashboard.kt)
+
+## API
+
+Here details of the available [API](./src/main/kotlin/net/pi/platform/hollywood/controller/DashboardController.kt)
+## Architecture
+
+ A self-contained service with its own storage mongoDB.
+ 
+### AuthX Integration
+
+ To be able to filter dashboards based on user authorization, we need to have:
+  
+  - configuration `auth.enabled` should be set to true.
+  - configuration `authx.url` should be set to the base url of authX service
+  - dashboards should be registered as resources in authX with the following path `/hollywood/dashboards/` .
+  - User / dashboards should belongs to the same group. 
 
 ![Sequence diagram](./doc/authx_dashboards_sequence.png)
+
+Check authX [documentation](https://bitbucket.pibenchmark.com/projects/AUTHX/repos/authx-service-kt/browse/README.md)
 
 ## Development 
 ### Packaging

@@ -8,7 +8,6 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpHeaders.AUTHORIZATION
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType.APPLICATION_JSON_UTF8
 import org.springframework.stereotype.Service
 import org.springframework.web.client.DefaultResponseErrorHandler
 import org.springframework.web.client.RestTemplate
@@ -44,11 +43,9 @@ class AuthorizationService(@Value("\${authx.url:NA}") val authxUrl: String,
     fun fetchAuthorizedResources(token: String, application: String, collection: String): List<AuthorizedEntity> {
         val headers = HttpHeaders()
         headers.put(AUTHORIZATION, arrayListOf("Bearer ${token}"))
-        //added to match authX contract
-        headers.contentType = APPLICATION_JSON_UTF8
         val path = "/${application}/${collection}/"
         val url: String = UriComponentsBuilder.fromHttpUrl(authxUrl)
-                .pathSegment(application, collection)
+                .pathSegment("auth", application, collection)
                 .build().toString()
         val response = restTemplate.exchange(url, HttpMethod.GET, HttpEntity(null, headers), Any::class.java)
         when {
@@ -60,9 +57,12 @@ class AuthorizationService(@Value("\${authx.url:NA}") val authxUrl: String,
             response.statusCode.is4xxClientError -> {
                 val message = when {
                     response.headers.containsKey("WWW-Authenticate") -> response.headers["WWW-Authenticate"]
-                    else -> {
+                    response.body is Map<*, *> -> {
                         val payload = response.body as Map<String, Any>
                         if (payload.containsKey("errorMessage")) payload["errorMessage"].toString() else response.body.toString()
+                    }
+                    else -> {
+                        "statusCode=${response.statusCode} : ${response.body}"
                     }
                 }
                 logger.warn("UnauthorizedException of ${application} ${collection} for user ${token}")
