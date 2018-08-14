@@ -1,3 +1,8 @@
+### [0.11.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.11.0) (14-08-2018) [#27](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/27/overview) [[AUTHX-268](https://jira.predictx.com/browse/AUTHX-268)] filter dashboard
+
+* [[AUTHX-268](https://jira.predictx.com/browse/AUTHX-268)] move to spring-boot2
+* [[AUTHX-268](https://jira.predictx.com/browse/AUTHX-268)] add AuthX service and filter dashboards
+
 ### [0.10.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.10.0) (06-07-2018) [#28](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/28/overview) [[PIPHW-306](https://jira.predictx.com/browse/PIPHW-306)] add a type for widget and put null the name
 
 + Change jenckinsfile with the new configuration
