@@ -2,14 +2,16 @@
 
 @Library('predictx-ci@develop') _
 
-def job = new  main.groovy.net.predictx.flow.MavenFlow(this)
+def job = new  main.groovy.net.predictx.flow.GradleFlow(this)
 
 job.exec( {
   job.checkoutCode()
 
   if (!job.delegateMerge()) {
 
-    job.mvnCleanVerify(false,'target/surefire-reports/TEST-*.xml','','target/cucumber','continuous-int')
+    stage("gradleCleanUnitTest") {
+      job.gradle "clean build"
+    }
 
     job.sonarQubeAnalysis(true)
 

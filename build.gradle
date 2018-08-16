@@ -1,0 +1,109 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.2.60"
+    id "org.jetbrains.kotlin.plugin.spring" version "1.2.60"
+    id "com.avast.gradle.docker-compose" version "0.7.1"
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'jacoco'
+apply plugin: "org.jetbrains.kotlin.jvm"
+apply plugin: 'docker-compose'
+
+
+mainClassName = 'net.pi.platform.hollywood.ApplicationKt.main'
+applicationName = 'hollywood-service'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "http://nexus3.pibenchmark.com/nexus/repository/maven-central" }
+    maven { url "http://nexus3.pibenchmark.com/nexus/repository/maven-releases" }
+    maven { url "http://nexus3.pibenchmark.com/nexus/repository/maven-snapshots" }
+}
+
+jacoco {
+    toolVersion = "0.8.1"
+}
+
+task unitTest (type: Test) {
+    dependsOn jacocoTestReport, jacocoTestCoverageVerification
+    jacoco {
+        destinationFile = file("$buildDir/reports/jacoco/jacoco.exec")
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/reports/jacoco")
+    }
+}
+
+jacocoTestCoverageVerification {
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude:  [
+                    'net/pi/platform/dataset/config/*'
+            ])
+        })
+    }
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.6
+            }
+        }
+    }
+}
+
+sourceSets {
+    test {
+        resources {
+            srcDir file('src/test/java')
+            exclude '**/*.java'
+        }
+    }
+}
+
+test {
+    // pull cucumber options into the cucumber jvm
+    systemProperty "cucumber.options", System.properties.getProperty("cucumber.options")
+    // pull karate options into the jvm
+    systemProperty "karate.env", System.properties.getProperty("karate.env")
+    // ensure tests are always run
+    outputs.upToDateWhen { false }
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.60"
+    compile "org.jetbrains.kotlin:kotlin-reflect:1.2.41"
+    compile "org.springframework.cloud:spring-cloud-starter-config:2.0.0.RC2"
+    compile "org.springframework.boot:spring-boot-starter-actuator:2.0.2.RELEASE"
+    compile "org.springframework.boot:spring-boot-starter-web:2.0.2.RELEASE"
+    compile "org.springframework.boot:spring-boot-starter-data-mongodb:2.0.2.RELEASE"
+    compile "org.keycloak:keycloak-tomcat8-adapter:4.0.0.Beta3"
+    compile "org.keycloak:keycloak-spring-boot-2-adapter:4.0.0.Beta3"
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.1"
+    compile "com.fasterxml.jackson.core:jackson-databind:2.9.1"
+    compile "com.fasterxml.jackson.core:jackson-core:2.9.1"
+    compile "com.fasterxml.jackson.core:jackson-annotations:2.9.1"
+    compile "net.pi.platform.common.apierror:spring-api-error-handler:0.1.14"
+    compile "info.cukes:gherkin:2.12.2"
+    testCompile "org.springframework.boot:spring-boot-starter-test:2.0.2.RELEASE"
+    testCompile "org.mock-server:mockserver-netty:5.4.1"
+    testCompile 'com.intuit.karate:karate-junit4:0.5.0'
+    testCompile 'com.intuit.karate:karate-apache:0.5.0'
+    testCompile 'com.github.javafaker:javafaker:0.15'
+    testCompile 'net.predictx.qa:common-karate-features:0.0.3'
+}
+
+dockerCompose.isRequiredBy(test)
+
+dockerCompose{
+    useComposeFiles = ['docker-compose-integration-test.yml']
+}
