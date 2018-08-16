@@ -3,7 +3,7 @@ services:
   hollywood-service:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: app/Dockerfile
     ports:
       - 8484:8081
     environment:

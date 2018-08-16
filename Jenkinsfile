@@ -15,7 +15,7 @@ job.exec( {
 
     job.sonarQubeAnalysis(true)
 
-    job.dockerBuild()
+    job.dockerBuild(null, "app")
 
     job.dockerPush()
   }
