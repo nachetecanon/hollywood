@@ -2,7 +2,7 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'groovy'
 
-    group 'com.predictx.platform.datasetmanager'
+    group 'com.predictx.hollywood'
 
     repositories {
         mavenLocal()
