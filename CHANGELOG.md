@@ -1,3 +1,5 @@
+#### [0.11.1](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.11.1) (16-08-2018) [#29](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/29/overview) [[PXCORE-42](https://jira.predictx.com/browse/PXCORE-42)] Replace maven with gradle.
+
 ### [0.11.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.11.0) (14-08-2018) [#27](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/27/overview) [[AUTHX-268](https://jira.predictx.com/browse/AUTHX-268)] filter dashboard
 
 * [[AUTHX-268](https://jira.predictx.com/browse/AUTHX-268)] move to spring-boot2
