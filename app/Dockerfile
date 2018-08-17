@@ -1,10 +1,8 @@
-FROM docker-test.pibenchmark.com/pi-java:8
-EXPOSE 8081
+FROM openjdk:10
 
-ADD build/libs/app.jar app.jar
+WORKDIR /
 
-# To reduce Tomcat startup time we added a system property pointing to "/dev/urandom" as a source of entropy.
-ENTRYPOINT ["java",  \
-            "-Xms256m", \
-            "-Djava.security.egd=file:/dev/./urandom", \
-            "-jar", "/app.jar"]
+COPY build/distributions/hollywood-service.tar /tmp/hollywood-service.tar
+RUN tar -xf /tmp/hollywood-service.tar -C /opt/
+
+ENTRYPOINT /opt/hollywood-service/bin/hollywood-service

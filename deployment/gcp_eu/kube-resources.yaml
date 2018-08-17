@@ -1,0 +1,171 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: {{REPO_NAME}}
+  labels:
+    name: {{REPO_NAME}}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-configuration
+  namespace: {{REPO_NAME}}
+type: Generic
+data:
+  app-config-secret.yaml: {{app_config_secret_yaml_base64}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: application-configuration
+  namespace: {{REPO_NAME}}
+data:
+  app-config.yaml: |
+    {{app_config_yaml|indent(4)}}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{REPO_NAME}}
+  namespace: {{REPO_NAME}}
+spec:
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{REPO_NAME}}
+  progressDeadlineSeconds: 300
+  template:
+    metadata:
+      name: {{REPO_NAME}}
+      labels:
+        app: {{REPO_NAME}}
+    spec:
+      volumes:
+      - name: secret-configuration
+        secret:
+          secretName: secret-configuration
+      - name: application-configuration
+        configMap:
+          name: application-configuration
+      containers:
+      - name: {{REPO_NAME}}
+        image: {{DOCKER_IMAGE}}
+        env:
+        - name: JAVA_OPTS
+          value: -Dspring.cloud.bootstrap.enabled=false -Dspring.config.location=file:/etc/{{REPO_NAME}}/config/app-config.yaml,file:/etc/{{REPO_NAME}}/secret/app-config-secret.yaml
+        ports:
+        - name: service-port
+          containerPort: 8080
+
+        livenessProbe:
+          httpGet:
+            path: /actuator/info
+            port: service-port
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          failureThreshold: 3
+
+        readinessProbe:
+          httpGet:
+            path: /actuator/info
+            port: service-port
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          failureThreshold: 11
+
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: secret-configuration
+          readOnly: true
+          mountPath: /etc/{{REPO_NAME}}/secret/
+        - name: application-configuration
+          readOnly: true
+          mountPath: /etc/{{REPO_NAME}}/config/
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: service
+  namespace: {{REPO_NAME}}
+spec:
+  selector:
+    app: {{REPO_NAME}}
+  ports:
+  - name: service
+    protocol: TCP
+    port: 80
+    targetPort: 8080
+  type: NodePort
+---
+####################################################################################################
+###################################### Mongo DB resources ##########################################
+####################################################################################################
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: {{REPO_NAME}}-mongo
+  labels:
+    name: {{REPO_NAME}}-mongo
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo
+  namespace: {{REPO_NAME}}-mongo
+spec:
+  serviceName: mongo
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      volumes:
+      - name: mongo-volume
+        gcePersistentDisk:
+          pdName: {{REPO_NAME}}-mongo-db-disk
+          fsType: ext4
+      containers:
+      - name: mongo
+        image: eu.gcr.io/predictx-tools/pi-mongo:3.2
+        ports:
+        - containerPort: 27017
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: mongo-volume
+          mountPath: /data
+        env:
+        - name: MONGO_ADMIN_PASSWORD
+          value: {{MONGO_ADMIN_PASS}}
+        - name: MONGO_USERNAME_1
+          value: {{REPO_NAME}}
+        - name: MONGO_PASSWORD_1
+          value: {{MONGO_DB_PASS}}
+        - name: MONGO_DATABASE_1
+          value: {{REPO_NAME}}
+        - name: MONGO_ROLE_1
+          value: readWrite
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: service
+  namespace: {{REPO_NAME}}-mongo
+spec:
+  selector:
+    app: mongo
+  ports:
+  - name: mongo
+    protocol: TCP
+    port: 27017
+    targetPort: 27017
+  type: NodePort

@@ -11,7 +11,7 @@ apply plugin: "org.jetbrains.kotlin.jvm"
 apply plugin: 'docker-compose'
 
 
-mainClassName = 'net.pi.platform.hollywood.ApplicationKt.main'
+mainClassName = 'net.pi.platform.hollywood.ApplicationKt'
 applicationName = 'hollywood-service'
 
 jacoco {

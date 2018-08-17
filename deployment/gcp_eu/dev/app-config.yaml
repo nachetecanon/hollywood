@@ -1,0 +1,24 @@
+spring:
+  data:
+    mongodb:
+      host: service.{{REPO_NAME}}-mongo
+      port: 27017
+      database: {{REPO_NAME}}
+      username: {{REPO_NAME}}
+keycloak:
+  realm: PI
+  resource: hollywood
+  auth-server-url: https://auth-dev.pibenchmark.com/auth
+  use-resource-role-mappings: true
+  securityConstraints:
+  - securityCollections:
+    - name: unsecure
+      patterns:
+      - /actuator/health
+      - /actuator/info
+  - authRoles:
+    - USER
+    securityCollections:
+    - name: Service
+      patterns:
+      - /
