@@ -1,3 +1,5 @@
+#### [0.11.3](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.11.3) (20-08-2018) [#31](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/31/overview) [[PXCORE-44](https://jira.predictx.com/browse/PXCORE-44)] Add deployment to GCP/DEV environment.
+
 #### [0.11.2](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.11.2) (16-08-2018) [#30](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/30/overview) [[PXCORE-39](https://jira.predictx.com/browse/PXCORE-39)] move hollywood service src to app folder
 
 #### [0.11.1](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.11.1) (16-08-2018) [#29](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/29/overview) [[PXCORE-42](https://jira.predictx.com/browse/PXCORE-42)] Replace maven with gradle.
