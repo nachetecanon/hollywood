@@ -15,9 +15,9 @@ job.exec( {
 
     job.sonarQubeAnalysis(true)
 
-    job.dockerBuild(null, "app")
-
     job.e2eTest()
+
+    job.dockerBuild(null, "app")
 
     job.dockerPush(["NEXUS", "GCLOUD_EU"])
 
