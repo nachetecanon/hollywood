@@ -17,6 +17,8 @@ job.exec( {
 
     job.dockerBuild(null, "app")
 
+    job.e2eTest()
+
     job.dockerPush(["NEXUS", "GCLOUD_EU"])
 
     job.deploy("dev")
