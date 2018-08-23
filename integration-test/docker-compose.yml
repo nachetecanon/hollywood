@@ -1,0 +1,36 @@
+version: '2'
+services:
+  hollywood-service:
+    build:
+      context: ../app
+      dockerfile: Dockerfile
+    ports:
+      - 8484:8080
+    environment:
+    - JAVA_OPTS=-Dspring.config.location=/etc/hollywood-service/application.yaml -Dspring.cloud.bootstrap.enabled=false
+    depends_on:
+      - mongo
+      - keycloak
+    volumes:
+    - ./config:/etc/hollywood-service
+  mongo:
+    ports:
+      - 27017:27017/tcp
+    environment:
+      - MONGO_ADMIN_PASSWORD=admin
+      - MONGO_USERNAME_1=localUser
+      - MONGO_PASSWORD_1=local
+      - MONGO_DATABASE_1=hollywood
+      - MONGO_ROLE_1=readWrite
+    image: docker-test.pibenchmark.com/pi-mongo:3.2
+  keycloak:
+    ports:
+    - 18080:18080/tcp
+    entrypoint: /scripts/keycloak.sh
+    environment:
+    - KEYCLOAK_USER=admin
+    - KEYCLOAK_PASSWORD=admin
+    - DB_VENDOR=h2
+    image: jboss/keycloak:4.0.0.Final
+    volumes:
+    - ./keycloak:/scripts

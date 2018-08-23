@@ -1,0 +1,29 @@
+plugins {
+    id "com.avast.gradle.docker-compose" version "0.7.1"
+}
+
+apply plugin: 'docker-compose'
+
+dependencies {
+    testCompile 'io.github.http-builder-ng:http-builder-ng-apache:1.0.3'
+    testCompile 'org.keycloak:keycloak-admin-client:4.0.0.Final'
+    testCompile 'org.jboss.resteasy:resteasy-client:3.5.1.Final'
+    testCompile 'org.jboss.resteasy:resteasy-jackson2-provider:3.5.1.Final'
+    testCompile 'org.mock-server:mockserver-netty:5.4.1'
+    testCompile 'org.apache.commons:commons-lang3:3.8'
+    testCompile 'org.springframework.data:spring-data-mongodb:2.0.9.RELEASE'
+}
+
+task integrationTest(type: Test) {
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+}
+
+dockerCompose.isRequiredBy(integrationTest)
+
+dockerCompose{
+    captureContainersOutput = true
+}
+
+

@@ -15,6 +15,8 @@ job.exec( {
 
     job.sonarQubeAnalysis(true)
 
+    job.integrationTest()
+
     job.e2eTest()
 
     job.dockerBuild(null, "app")

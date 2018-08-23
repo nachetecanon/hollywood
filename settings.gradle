@@ -1,4 +1,5 @@
 rootProject.name = 'hollywood-service'
 include 'app'
 include 'e2e-test'
+include 'integration-test'
 

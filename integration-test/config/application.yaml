@@ -1,0 +1,26 @@
+spring:
+  data:
+    mongodb:
+      host: mongo
+      port: 27017
+      database: hollywood
+      username: localUser
+      password: local
+
+keycloak:
+  realm: test-realm
+  public-client: true
+  resource: hollywood-service
+  auth-server-url: http://keycloak:18080/auth
+  use-resource-role-mappings: true
+  securityConstraints:
+  - securityCollections:
+    - name: unsecure
+      patterns:
+      - /health
+  - securityCollections:
+    - name: secure
+      patterns:
+      - /
+    authRoles:
+    - READ
