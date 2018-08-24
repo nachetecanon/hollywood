@@ -35,34 +35,41 @@ Check authX [documentation](https://bitbucket.pibenchmark.com/projects/AUTHX/rep
 ## Development 
 ### Packaging
 
-Use maven:
+Use gradle:
 
 ```sh
-mvn clean package
+gradle clean build
 ```
 all the unit tests will be executed and the package won't be built if some of them fail.
 
 ### Testing
 
-Make sure you have set up integration resources:
+#### Integration
 ```sh
-docker-compose -f docker-compose-integration-test.yml up --build
+gradle clean build integrationTest
 ```
 
-Launch unit and integration tests:
+#### End to End
 ```sh
-mvn clean verify
+gradle clean build e2eTest
 ```
 
-### Startup Hollywood Service stack
+## Deployment
+For details on how deployment works please read section __Deployment__ at [predictx-ci](https://bitbucket.pibenchmark.com/projects/QA/repos/predictx-ci/browse/README.md)
 
-There are two options, launch plain stack or launch stack with debug configuration:
+### Kubernetes / GCP
 
-1. Plain stack
+This service is automatically rolled out to kubernetes clusters running on Google Cloud Platform
+
+|Env  | GCP Project Name | Cluster Name|
+|:---:|:----------------:|:-----------:|
+|dev  | px-platform-dev  | dev-cluster 
+
+## Miscellaneous
+
+### Connect to hollywood-mongo
 ```sh
-docker-compose -f docker-compose.yml up --build
+   kubectl port-forward -n hollywood-service-mongo mongo-0 27017:27017
 ```
-2. Stack with debug config
-```sh
-docker-compose -f docker-compose-debug.yml up --build
-```
+Use your preferred mongo db client to connect on localhost:27017
+
