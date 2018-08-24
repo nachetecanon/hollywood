@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
+import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.RequestEntity
@@ -141,6 +142,8 @@ class AuthorizedAccessIT {
         assertEquals(1, dashboardResponseEntity.body?.size)
         assertEquals("28", dashboardResponseEntity.body?.get(0)?.id)
     }
+
+    private inline fun <reified T : Any> typeRef(): ParameterizedTypeReference<T> = object : ParameterizedTypeReference<T>() {}
 
 }
 
