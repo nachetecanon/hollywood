@@ -23,8 +23,16 @@ class DashboardService(@Autowired val dashboardRepository: DashboardRepository) 
 
     fun updateDashboard(id: String, dashboard: Dashboard) {
         dashboardRepository.findOneById(id) ?:
-            throw EntityNotFoundException("Unable to update dashboard: Dashboard with id[" + id + "] not found")
+            throw EntityNotFoundException("Unable to update dashboard: Dashboard with id[$id] not found")
         saveDashboard(dashboard.copy(id = id))
+    }
+
+    fun deleteDashboard(id: String){
+        if (dashboardRepository.existsById(id)) {
+            dashboardRepository.deleteById(id)
+        } else {
+            throw EntityNotFoundException("Unable to delete dashboard: Dashboard with id[$id] not found")
+        }
     }
 
     fun listAll(): List<Dashboard> = dashboardRepository.findAll()

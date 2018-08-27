@@ -139,6 +139,35 @@ class HollywoodServiceSpec extends Specification{
         exception.body.errorMessage == "Unable to update dashboard: Dashboard with id[${dashboard.id}] not found"
     }
 
+    def "Should delete a dashboard"() {
+        given:
+        def accessToken = login("user1", "pass1", SERVICE_NAME, REALM)
+        def dashboard = createDashboard(accessToken, validDashboard())
+        when:
+        mongoTemplate.findById(dashboard.id,Map.class,"dashboards")["id"] == dashboard.id
+        deleteDashboard(accessToken, dashboard.id)
+        then:
+        mongoTemplate.findById(dashboard.id,Map.class,"dashboards") == null
+
+
+    }
+
+    def "Should throw entity not found exception when doesnt exist  a dashboard"() {
+        given:
+        def accessToken = login("user1", "pass1", SERVICE_NAME, REALM)
+        def id = "errorID"
+        when:
+        deleteDashboard(accessToken, id)
+        then:
+        def exception = thrown(HttpException)
+        exception.statusCode == 404
+        exception.body.errorCode == 'uri.not.found'
+        exception.body.errorMessage == "Unable to delete dashboard: Dashboard with id[${id}] not found"
+
+
+    }
+
+
     static Map validDashboard() {
         [
                 name: randomAlphanumeric(5, 60),
@@ -173,6 +202,10 @@ class HollywoodServiceSpec extends Specification{
     private Map getDashboard(accessToken, id) {
         def list = get(accessToken, "/dashboards") as List
         list.find {it.id == id}
+    }
+
+    private void deleteDashboard(accessToken, id) {
+        delete(accessToken, "/dashboards/$id")
     }
 
     def post(accessToken, path, payload) {
@@ -210,6 +243,14 @@ class HollywoodServiceSpec extends Specification{
                 ChainedHttpConfig chainedHttpConfig, FromServer fromServer ->
                     new JsonSlurper().parse(fromServer.reader)
             }
+        }
+    }
+
+    def delete(accessToken, path) {
+        restClient.delete {
+            request.uri = "http://${SERVICE_NAME}:$SERVICE_PORT$path"
+            request.contentType = "application/json"
+            request.headers['Authorization'] = "Bearer ${accessToken}"
         }
     }
 

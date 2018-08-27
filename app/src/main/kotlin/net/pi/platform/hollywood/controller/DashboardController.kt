@@ -41,6 +41,11 @@ class DashboardController(val dashboardService: DashboardService, val authorizat
         }
     }
 
+    @DeleteMapping("/{id}")
+    fun deleteDashboard(@PathVariable("id", required = true) id: String) {
+        dashboardService.deleteDashboard(id)
+    }
+
     private fun onlyAuthorizedDasboards(request: ServletRequest): List<Dashboard> {
         val token = extractToken(request)
         val resources = authorizationService.fetchAuthorizedResources(token, "hollywood", "dashboards")

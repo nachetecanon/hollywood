@@ -2,10 +2,10 @@ package net.pi.platform.hollywood.service
 
 import net.pi.platform.common.api.exception.EntityNotFoundException
 import net.pi.platform.common.api.exception.WrongInputValueException
+import net.pi.platform.common.api.exception.errorcode.APIError
 import net.pi.platform.hollywood.DataSamplesObjects
 import net.pi.platform.hollywood.repository.DashboardRepository
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.BDDMockito.given
@@ -57,6 +57,31 @@ class DashboardServiceImplTest {
         given(dashboardRepository.findOneById(ArgumentMatchers.anyString())).willReturn(dashboard)
         dashboardService.updateDashboard("some_id", dashboard)
         verify<DashboardRepository>(this.dashboardRepository, times(1)).save(dashboardToUpdate)
+    }
+
+    @Test
+    fun `test delete dashboard`() {
+        val dashboardId =  "some_id"
+        given(dashboardRepository.existsById(dashboardId)).willReturn(true);
+        dashboardService.deleteDashboard("some_id")
+        verify<DashboardRepository>(this.dashboardRepository, times(1)).deleteById(dashboardId)
+        verify<DashboardRepository>(this.dashboardRepository, times(1)).existsById(dashboardId)
+        verifyNoMoreInteractions(this.dashboardRepository)
+    }
+
+    @Test
+    fun `test delete dashboard thown an exception`() {
+        val dashboardId =  "some_id"
+        given(dashboardRepository.existsById(dashboardId)).willReturn(false);
+        try {
+            dashboardService.deleteDashboard("some_id")
+            fail("Should thow a EntityNotFoundException")
+        } catch (e : EntityNotFoundException){
+            assertEquals(e.error,APIError.NOT_FOUND)
+        } finally {
+            verify<DashboardRepository>(this.dashboardRepository, times(1)).existsById(dashboardId)
+        }
+
     }
 
     @Test
