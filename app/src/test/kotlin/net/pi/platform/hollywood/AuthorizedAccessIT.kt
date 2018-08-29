@@ -38,6 +38,8 @@ class AuthorizedAccessIT {
         }
     }
 
+    val mockPort = 2080
+
     @Autowired
     lateinit var restTemplate: TestRestTemplate
 
@@ -63,7 +65,7 @@ class AuthorizedAccessIT {
     @Test
     fun `verify return all dashboards because it is an authorized request`() {
         // Given
-        MockServerClient("127.0.0.1", 1080)
+        MockServerClient("127.0.0.1", mockPort)
                 .reset()
                 .`when`(
                         request()
@@ -109,7 +111,7 @@ class AuthorizedAccessIT {
     @Test
     fun `verify return filtered dashboards because it is filtering the list of results`() {
         // Given
-        MockServerClient("127.0.0.1", 1080)
+        MockServerClient("127.0.0.1", mockPort)
                 .reset()
                 .`when`(
                         request()

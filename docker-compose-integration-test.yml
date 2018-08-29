@@ -2,7 +2,7 @@ version: '2'
 services:
   mongodb:
     ports:
-      - 27017:27017/tcp
+      - 29017:27017/tcp
     environment:
     - MONGO_ADMIN_PASSWORD=admin
     - MONGO_USERNAME_1=localUser
@@ -12,5 +12,5 @@ services:
     image: docker-test.pibenchmark.com/pi-mongo:3.2
   authx:
     ports:
-      - 1080:1080/tcp
+      - 2080:1080/tcp
     image: jamesdbloom/mockserver:mockserver-5.4.1
