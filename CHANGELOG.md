@@ -1,3 +1,7 @@
+### [0.12.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.12.0) (30-08-2018) [#34](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/34/overview) [[PIPHW-456](https://jira.predictx.com/browse/PIPHW-456)] should delete a dashboard
+
++ Delete a dashboard on hollywood
+
 #### [0.11.5](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.11.5) (24-08-2018) [#33](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/33/overview) [[PXCORE-40](https://jira.predictx.com/browse/PXCORE-40)] Move integration tests to a separate module.
 
 #### [0.11.4](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.11.4) (21-08-2018) [#32](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/32/overview) [[PXCORE-41](https://jira.predictx.com/browse/PXCORE-41)] move karate tests to e2e test module.
