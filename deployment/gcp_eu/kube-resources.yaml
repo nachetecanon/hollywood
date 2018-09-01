@@ -1,16 +1,9 @@
 ---
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: {{REPO_NAME}}
-  labels:
-    name: {{REPO_NAME}}
----
 apiVersion: v1
 kind: Secret
 metadata:
   name: secret-configuration
-  namespace: {{REPO_NAME}}
+  namespace: px-platform
 type: Generic
 data:
   app-config-secret.yaml: {{app_config_secret_yaml_base64}}
@@ -19,7 +12,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: application-configuration
-  namespace: {{REPO_NAME}}
+  namespace: px-platform
 data:
   app-config.yaml: |
     {{app_config_yaml|indent(4)}}
@@ -28,7 +21,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{REPO_NAME}}
-  namespace: {{REPO_NAME}}
+  namespace: px-platform
 spec:
   strategy:
     rollingUpdate:
@@ -90,13 +83,13 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: service
-  namespace: {{REPO_NAME}}
+  name: {{REPO_NAME}}
+  namespace: px-platform
 spec:
   selector:
     app: {{REPO_NAME}}
   ports:
-  - name: service
+  - name: http
     protocol: TCP
     port: 80
     targetPort: 8080
@@ -106,18 +99,11 @@ spec:
 ###################################### Mongo DB resources ##########################################
 ####################################################################################################
 ---
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: {{REPO_NAME}}-mongo
-  labels:
-    name: {{REPO_NAME}}-mongo
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongo
-  namespace: {{REPO_NAME}}-mongo
+  namespace: px-platform
 spec:
   serviceName: mongo
   replicas: 1
@@ -158,8 +144,8 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: service
-  namespace: {{REPO_NAME}}-mongo
+  name: {{REPO_NAME}}-mongo
+  namespace: px-platform
 spec:
   selector:
     app: mongo
