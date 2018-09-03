@@ -1,3 +1,5 @@
+#### [0.12.1](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.12.1) (03-09-2018) [#36](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/36/overview) [[PXCORE-75](https://jira.predictx.com/browse/PXCORE-75)] Move hollywood-service resources to px-platform namespace
+
 ### [0.12.0](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/browse?at=refs%2Ftags%2Fv0.12.0) (30-08-2018) [#34](https://bitbucket.pibenchmark.com/projects/HOL/repos/hollywood-service/pull-requests/34/overview) [[PIPHW-456](https://jira.predictx.com/browse/PIPHW-456)] should delete a dashboard
 
 + Delete a dashboard on hollywood
